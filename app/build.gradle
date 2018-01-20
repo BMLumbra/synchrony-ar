@@ -1,0 +1,37 @@
+apply plugin: 'com.android.application'
+
+def VUFORIA_SDK_DIR = '../../vuforia-sdk-android-7-0-43'
+def NATIVE_LIB_DIR = 'build/lib'
+def JAR_DIR = 'build/java/vuforia'
+
+android {
+    compileSdkVersion 22
+    defaultConfig {
+        applicationId "com.synchrony.uconn.design.synchronyar"
+        minSdkVersion 14
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile files("$VUFORIA_SDK_DIR/$JAR_DIR/Vuforia.jar")
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:22.2.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation ('com.android.support.test:runner:1.0.1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    androidTestImplementation ('com.android.support.test.espresso:espresso-core:3.0.1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+}
