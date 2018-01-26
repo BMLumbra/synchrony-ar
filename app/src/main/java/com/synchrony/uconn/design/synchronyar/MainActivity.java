@@ -25,10 +25,9 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.CheckBox;
+//import android.widget.CheckBox;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
-import android.widget.Toast;
+//import android.widget.Switch;
 
 import com.vuforia.CameraDevice;
 import com.vuforia.DataSet;
@@ -45,7 +44,6 @@ import com.vuforia.samples.SampleApplication.SampleApplicationSession;
 import com.vuforia.samples.SampleApplication.utils.LoadingDialogHandler;
 import com.vuforia.samples.SampleApplication.utils.SampleApplicationGLView;
 import com.vuforia.samples.SampleApplication.utils.Texture;
-import com.synchrony.uconn.design.synchronyar.R;
 
 import java.util.Vector;
 
@@ -69,10 +67,7 @@ public class MainActivity extends Activity implements SampleApplicationControl
 
     private GestureDetector mGestureDetector;
 
-    private boolean mFlash = false;
-    private boolean mExtendedTracking = false;
-
-    private View mFlashOptionView;
+    //private View mFlashOptionView;
 
     private RelativeLayout mUILayout;
 
@@ -101,14 +96,13 @@ public class MainActivity extends Activity implements SampleApplicationControl
                 .initAR(this, ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // Load any sample specific textures:
-        mTextures = new Vector<Texture>();
+        mTextures = new Vector<>();
         loadTextures();
 
         mGestureDetector = new GestureDetector(this, new GestureListener());
 
         mIsDroidDevice = Build.MODEL.toLowerCase().startsWith(
                 "droid");
-
     }
 
 
@@ -208,7 +202,8 @@ public class MainActivity extends Activity implements SampleApplicationControl
         }
 
         // Turn off the flash
-        if (mFlashOptionView != null && mFlash)
+        /*boolean flash = false;
+        if (mFlashOptionView != null && flash)
         {
             // OnCheckedChangeListener is called upon changing the checked state
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -218,7 +213,7 @@ public class MainActivity extends Activity implements SampleApplicationControl
             {
                 ((CheckBox) mFlashOptionView).setChecked(false);
             }
-        }
+        }*/
 
         try
         {
@@ -330,7 +325,7 @@ public class MainActivity extends Activity implements SampleApplicationControl
             String name = "Current Dataset : " + trackable.getName();
             trackable.setUserData(name);
             Log.d(LOGTAG, "UserData:Set the following user data "
-                    + (String) trackable.getUserData());
+                    + trackable.getUserData());
         }
 
         return true;
@@ -524,14 +519,12 @@ public class MainActivity extends Activity implements SampleApplicationControl
     public boolean doStartTrackers()
     {
         // Indicate if the trackers were started correctly
-        boolean result = true;
-
         Tracker objectTracker = TrackerManager.getInstance().getTracker(
                 ObjectTracker.getClassType());
         if (objectTracker != null)
             objectTracker.start();
 
-        return result;
+        return true;
     }
 
 
@@ -539,14 +532,12 @@ public class MainActivity extends Activity implements SampleApplicationControl
     public boolean doStopTrackers()
     {
         // Indicate if the trackers were stopped correctly
-        boolean result = true;
-
         Tracker objectTracker = TrackerManager.getInstance().getTracker(
                 ObjectTracker.getClassType());
         if (objectTracker != null)
             objectTracker.stop();
 
-        return result;
+        return true;
     }
 
 
@@ -554,12 +545,10 @@ public class MainActivity extends Activity implements SampleApplicationControl
     public boolean doDeinitTrackers()
     {
         // Indicate if the trackers were deinitialized correctly
-        boolean result = true;
-
         TrackerManager tManager = TrackerManager.getInstance();
         tManager.deinitTracker(ObjectTracker.getClassType());
 
-        return result;
+        return true;
     }
 
 
@@ -567,24 +556,12 @@ public class MainActivity extends Activity implements SampleApplicationControl
     public boolean onTouchEvent(MotionEvent event)
     {
         // Process the Gestures
-        /*if (mSampleAppMenu != null && mSampleAppMenu.processEvent(event))
-            return true;*/
-
         return mGestureDetector.onTouchEvent(event);
     }
 
 
     boolean isExtendedTrackingActive()
     {
-        return mExtendedTracking;
-    }
-
-    final public static int CMD_BACK = -1;
-    final public static int CMD_EXTENDED_TRACKING = 1;
-    final public static int CMD_FLASH = 2;
-
-    private void showToast(String text)
-    {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+        return false;
     }
 }
