@@ -13,6 +13,7 @@ package com.synchrony.uconn.design.synchronyar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -26,7 +27,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 //import android.widget.CheckBox;
+import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 //import android.widget.Switch;
 
 import com.vuforia.CameraDevice;
@@ -71,6 +74,8 @@ public class MainActivity extends Activity implements SampleApplicationControl
 
     private RelativeLayout mUILayout;
 
+    private RelativeLayout buttonLayout;
+
 
     LoadingDialogHandler loadingDialogHandler = new LoadingDialogHandler(this);
 
@@ -91,6 +96,16 @@ public class MainActivity extends Activity implements SampleApplicationControl
         vuforiaAppSession = new SampleApplicationSession(this);
 
         startLoadingAnimation();
+        Button button = (Button) mUILayout.findViewById(R.id.button2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(getBaseContext(), "Button clicked", Toast.LENGTH_LONG).show();
+                // call next activity
+                startActivity(new Intent(MainActivity.this, UserInterface.class));
+            }
+        });
+        addContentView(mUILayout, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
         vuforiaAppSession
                 .initAR(this, ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -104,7 +119,6 @@ public class MainActivity extends Activity implements SampleApplicationControl
         mIsDroidDevice = Build.MODEL.toLowerCase().startsWith(
                 "droid");
     }
-
 
     // We want to load specific textures from the APK, which we will later use
     // for rendering.
@@ -194,7 +208,6 @@ public class MainActivity extends Activity implements SampleApplicationControl
     {
         Log.d(LOGTAG, "onPause");
         super.onPause();
-
         if (mGlView != null)
         {
             mGlView.setVisibility(View.INVISIBLE);
@@ -283,9 +296,10 @@ public class MainActivity extends Activity implements SampleApplicationControl
         loadingDialogHandler
                 .sendEmptyMessage(LoadingDialogHandler.SHOW_LOADING_DIALOG);
 
+
         // Adds the inflated layout to the view
-        addContentView(mUILayout, new LayoutParams(LayoutParams.MATCH_PARENT,
-                LayoutParams.MATCH_PARENT));
+        //addContentView(mUILayout, new LayoutParams(LayoutParams.MATCH_PARENT,
+                //LayoutParams.MATCH_PARENT));
 
     }
 

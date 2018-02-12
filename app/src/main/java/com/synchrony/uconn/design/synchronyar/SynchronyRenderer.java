@@ -13,6 +13,9 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.vuforia.Device;
 import com.vuforia.Matrix44F;
@@ -83,6 +86,7 @@ public class SynchronyRenderer implements GLSurfaceView.Renderer, SampleAppRende
         if (!mIsActive)
             return;
 
+
         // Call our function to render content from SampleAppRenderer class
         mSampleAppRenderer.render();
     }
@@ -90,8 +94,7 @@ public class SynchronyRenderer implements GLSurfaceView.Renderer, SampleAppRende
 
     // Called when the surface is created or recreated.
     @Override
-    public void onSurfaceCreated(GL10 gl, EGLConfig config)
-    {
+    public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         Log.d(LOGTAG, "GLRenderer.onSurfaceCreated");
 
         // Call Vuforia function to (re)initialize rendering after first use
@@ -100,7 +103,6 @@ public class SynchronyRenderer implements GLSurfaceView.Renderer, SampleAppRende
 
         mSampleAppRenderer.onSurfaceCreated();
     }
-
 
     // Called when the surface changed size.
     @Override
