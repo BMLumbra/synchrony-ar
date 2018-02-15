@@ -100,8 +100,6 @@ public class MainActivity extends Activity implements SampleApplicationControl
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getBaseContext(), "Button clicked", Toast.LENGTH_LONG).show();
-                // call next activity
                 startActivity(new Intent(MainActivity.this, UserInterface.class));
             }
         });

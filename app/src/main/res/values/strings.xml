@@ -70,5 +70,9 @@
     <string name="title_activity_user_interface">UserInterface</string>
     <string name="item_name">UConn Sweatshirt</string>
     <string name="back">Back</string>
+    <string name="name">Item Name:     </string>
+    <string name="made_in">Made in:     </string>
+    <string name="colors_available">Colors Available:     </string>
+    <string name="sizes_available">Sizes Available:     </string>
 
 </resources>
