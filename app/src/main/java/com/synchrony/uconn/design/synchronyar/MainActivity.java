@@ -16,6 +16,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,7 +30,9 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.vuforia.CameraDevice;
 import com.vuforia.DataSet;
 import com.vuforia.ObjectTracker;
@@ -51,6 +54,8 @@ import java.util.Vector;
 
 public class MainActivity extends Activity implements SampleApplicationControl
 {
+    private Context context = MainActivity.this;
+
     private static final String LOGTAG = "MainActivity";
 
     SampleApplicationSession vuforiaAppSession;
@@ -604,5 +609,15 @@ public class MainActivity extends Activity implements SampleApplicationControl
     public void showInfoActivity(View v)
     {
         startActivity(new Intent(MainActivity.this, UserInterface.class));
+    }
+
+    private void loadImageURL(String url, Product p, int ColorID)
+    {
+        ImageView temp = null;
+        Glide
+                .with(context)
+                .load(url)
+                .into(temp);
+        p.addImg(ColorID, temp);
     }
 }
