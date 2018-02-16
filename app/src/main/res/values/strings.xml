@@ -71,5 +71,9 @@
     <string name="info_overlay_button_text">More Info</string>
     <string name="info_overlay_none">No object selected</string>
     <string name="back">Back</string>
+    <string name="name">Item Name:     </string>
+    <string name="made_in">Made in:     </string>
+    <string name="colors_available">Colors Available:     </string>
+    <string name="sizes_available">Sizes Available:     </string>
 
 </resources>

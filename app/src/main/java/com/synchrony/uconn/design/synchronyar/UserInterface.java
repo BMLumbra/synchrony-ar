@@ -1,5 +1,6 @@
 package com.synchrony.uconn.design.synchronyar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
@@ -16,7 +17,8 @@ public class UserInterface extends Activity {
         Button button= (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(), "Clicked Back Button", Toast.LENGTH_LONG).show();
+                // goes back to main activity which is rendering the camera
+                finish();
             }
         });
     }
