@@ -13,8 +13,10 @@ package com.synchrony.uconn.design.synchronyar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,10 +27,12 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-//import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-//import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.vuforia.CameraDevice;
 import com.vuforia.DataSet;
 import com.vuforia.ObjectTracker;
@@ -50,6 +54,8 @@ import java.util.Vector;
 
 public class MainActivity extends Activity implements SampleApplicationControl
 {
+    private Context context = MainActivity.this;
+
     private static final String LOGTAG = "MainActivity";
 
     SampleApplicationSession vuforiaAppSession;
@@ -79,6 +85,8 @@ public class MainActivity extends Activity implements SampleApplicationControl
 
     boolean mIsDroidDevice = false;
 
+    LinearLayout infoOverlay = null;
+
 
     // Called when the activity first starts or the user navigates back to an
     // activity.
@@ -104,7 +112,6 @@ public class MainActivity extends Activity implements SampleApplicationControl
         mIsDroidDevice = Build.MODEL.toLowerCase().startsWith(
                 "droid");
     }
-
 
     // We want to load specific textures from the APK, which we will later use
     // for rendering.
@@ -194,7 +201,6 @@ public class MainActivity extends Activity implements SampleApplicationControl
     {
         Log.d(LOGTAG, "onPause");
         super.onPause();
-
         if (mGlView != null)
         {
             mGlView.setVisibility(View.INVISIBLE);
@@ -283,6 +289,7 @@ public class MainActivity extends Activity implements SampleApplicationControl
         loadingDialogHandler
                 .sendEmptyMessage(LoadingDialogHandler.SHOW_LOADING_DIALOG);
 
+
         // Adds the inflated layout to the view
         addContentView(mUILayout, new LayoutParams(LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT));
@@ -322,7 +329,7 @@ public class MainActivity extends Activity implements SampleApplicationControl
                 trackable.startExtendedTracking();
             }
 
-            String name = "Current Dataset : " + trackable.getName();
+            String name = trackable.getName();
             trackable.setUserData(name);
             Log.d(LOGTAG, "UserData:Set the following user data "
                     + trackable.getUserData());
@@ -563,5 +570,54 @@ public class MainActivity extends Activity implements SampleApplicationControl
     boolean isExtendedTrackingActive()
     {
         return false;
+    }
+
+    public void displayInfoOverlay(final String itemName)
+    {
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                if (infoOverlay == null) {
+                    LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+                    infoOverlay = (LinearLayout) inflater.inflate(R.layout.info_overlay, mUILayout, false);
+                }
+                TextView infoOverlayText = (TextView) infoOverlay.findViewById(R.id.info_overlay_text);
+                infoOverlayText.setText(itemName);
+
+                if (mUILayout.findViewById(R.id.info_overlay) == null) {
+                    mUILayout.addView(infoOverlay, new LayoutParams(LayoutParams.MATCH_PARENT,
+                            LayoutParams.MATCH_PARENT));
+                }
+            }
+        });
+    }
+
+    public void removeInfoOverlay()
+    {
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                if (mUILayout.findViewById(R.id.info_overlay) != null) {
+                    mUILayout.removeView(infoOverlay);
+                }
+            }
+        });
+    }
+
+    public void showInfoActivity(View v)
+    {
+        startActivity(new Intent(MainActivity.this, UserInterface.class));
+    }
+
+    private void loadImageURL(String url, Product p, int ColorID)
+    {
+        ImageView temp = null;
+        Glide
+                .with(context)
+                .load(url)
+                .into(temp);
+        p.addImg(ColorID, temp);
     }
 }

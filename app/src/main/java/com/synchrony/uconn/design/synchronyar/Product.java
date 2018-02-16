@@ -1,6 +1,8 @@
 package com.synchrony.uconn.design.synchronyar;
 
 import java.util.*;
+import android.widget.ImageView;
+
 
 public abstract class Product
 {
@@ -14,7 +16,10 @@ public abstract class Product
 
     private int stock;
 
+    private ArrayList<ArrayList<ImageView>> images = new ArrayList();
+
     private ArrayList<String> tags = new ArrayList<>();
+
 
     public Product(String _name, String _brand, String _miscInfo, double _price, int _stock, ArrayList<String> _tags)
     {
@@ -84,10 +89,14 @@ public abstract class Product
             return false;
     }
 
+    public void addImg(int ColorID, ImageView img)
+    {
+        images.get(ColorID).add(img);
+    }
+
     public boolean searchTag(String s)
     {
         return tags.contains(s);
     }
-
 
 }
