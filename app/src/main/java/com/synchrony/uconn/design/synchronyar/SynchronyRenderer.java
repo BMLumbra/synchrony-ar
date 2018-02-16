@@ -192,6 +192,9 @@ public class SynchronyRenderer implements GLSurfaceView.Renderer, SampleAppRende
         GLES20.glEnable(GLES20.GL_BLEND);
         GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
 
+        if (state.getNumTrackableResults() == 0) {
+            mActivity.removeInfoOverlay();
+        }
         // did we find any trackables this frame?
         for (int tIdx = 0; tIdx < state.getNumTrackableResults(); tIdx++)
         {
@@ -201,6 +204,8 @@ public class SynchronyRenderer implements GLSurfaceView.Renderer, SampleAppRende
 
             if (!result.isOfType(ObjectTargetResult.getClassType()))
                 continue;
+
+            mActivity.displayInfoOverlay(trackable.getUserData().toString());
 
             ObjectTarget objectTarget = (ObjectTarget) trackable;
 

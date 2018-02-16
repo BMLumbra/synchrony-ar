@@ -20,17 +20,18 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.constraint.ConstraintLayout;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-//import android.widget.CheckBox;
-import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
-//import android.widget.Switch;
+import android.widget.TextView;
 
 import com.vuforia.CameraDevice;
 import com.vuforia.DataSet;
@@ -74,8 +75,6 @@ public class MainActivity extends Activity implements SampleApplicationControl
 
     private RelativeLayout mUILayout;
 
-    private RelativeLayout buttonLayout;
-
 
     LoadingDialogHandler loadingDialogHandler = new LoadingDialogHandler(this);
 
@@ -83,6 +82,8 @@ public class MainActivity extends Activity implements SampleApplicationControl
     private AlertDialog mErrorDialog;
 
     boolean mIsDroidDevice = false;
+
+    LinearLayout infoOverlay = null;
 
 
     // Called when the activity first starts or the user navigates back to an
@@ -96,16 +97,6 @@ public class MainActivity extends Activity implements SampleApplicationControl
         vuforiaAppSession = new SampleApplicationSession(this);
 
         startLoadingAnimation();
-        Button button = (Button) mUILayout.findViewById(R.id.button2);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Toast.makeText(getBaseContext(), "Button clicked", Toast.LENGTH_LONG).show();
-                // call next activity
-                startActivity(new Intent(MainActivity.this, UserInterface.class));
-            }
-        });
-        addContentView(mUILayout, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
         vuforiaAppSession
                 .initAR(this, ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -298,8 +289,8 @@ public class MainActivity extends Activity implements SampleApplicationControl
 
 
         // Adds the inflated layout to the view
-        //addContentView(mUILayout, new LayoutParams(LayoutParams.MATCH_PARENT,
-                //LayoutParams.MATCH_PARENT));
+        addContentView(mUILayout, new LayoutParams(LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT));
 
     }
 
@@ -336,7 +327,7 @@ public class MainActivity extends Activity implements SampleApplicationControl
                 trackable.startExtendedTracking();
             }
 
-            String name = "Current Dataset : " + trackable.getName();
+            String name = trackable.getName();
             trackable.setUserData(name);
             Log.d(LOGTAG, "UserData:Set the following user data "
                     + trackable.getUserData());
@@ -577,5 +568,44 @@ public class MainActivity extends Activity implements SampleApplicationControl
     boolean isExtendedTrackingActive()
     {
         return false;
+    }
+
+    public void displayInfoOverlay(final String itemName)
+    {
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                if (infoOverlay == null) {
+                    LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+                    infoOverlay = (LinearLayout) inflater.inflate(R.layout.info_overlay, mUILayout, false);
+                }
+                TextView infoOverlayText = (TextView) infoOverlay.findViewById(R.id.info_overlay_text);
+                infoOverlayText.setText(itemName);
+
+                if (mUILayout.findViewById(R.id.info_overlay) == null) {
+                    mUILayout.addView(infoOverlay, new LayoutParams(LayoutParams.MATCH_PARENT,
+                            LayoutParams.MATCH_PARENT));
+                }
+            }
+        });
+    }
+
+    public void removeInfoOverlay()
+    {
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                if (mUILayout.findViewById(R.id.info_overlay) != null) {
+                    mUILayout.removeView(infoOverlay);
+                }
+            }
+        });
+    }
+
+    public void showInfoActivity(View v)
+    {
+        startActivity(new Intent(MainActivity.this, UserInterface.class));
     }
 }

@@ -68,7 +68,8 @@
 
     <string name="splash_screen_description">Vuforia Splash</string>
     <string name="title_activity_user_interface">UserInterface</string>
-    <string name="item_name">UConn Sweatshirt</string>
+    <string name="info_overlay_button_text">More Info</string>
+    <string name="info_overlay_none">No object selected</string>
     <string name="back">Back</string>
 
 </resources>
