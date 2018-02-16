@@ -1,9 +1,7 @@
 package com.synchrony.uconn.design.synchronyar;
 
 import java.util.*;
-import android.content.Context;
 import android.widget.ImageView;
-import com.bumptech.glide.Glide;
 
 
 public abstract class Product
@@ -18,7 +16,7 @@ public abstract class Product
 
     private int stock;
 
-    public ArrayList<ArrayList<ImageView>> images = new ArrayList();
+    private ArrayList<ArrayList<ImageView>> images = new ArrayList();
 
     private ArrayList<String> tags = new ArrayList<>();
 
