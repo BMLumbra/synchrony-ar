@@ -4,7 +4,7 @@ import java.util.*;
 import android.widget.ImageView;
 
 
-public abstract class Product
+public class Product
 {
     private String name;
 
@@ -97,6 +97,10 @@ public abstract class Product
     public boolean searchTag(String s)
     {
         return tags.contains(s);
+    }
+
+    public static Product getProductById(int id) {
+        return new Product("Peanut Butter", "Jif", "", 3, 0);
     }
 
 }
