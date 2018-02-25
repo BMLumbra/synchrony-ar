@@ -21,7 +21,7 @@ public class Catalogue
         return id%maxSize;
     }
 
-    //Adds a product to the hash table using a index
+    //Adds a product to the hash table using an index
     private void addProduct(int index, Product p)
     {
         ArrayList<Product> temp = hashTable.get(index);
