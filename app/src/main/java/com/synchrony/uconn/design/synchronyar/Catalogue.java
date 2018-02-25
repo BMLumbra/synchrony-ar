@@ -7,7 +7,7 @@ import java.util.*;
 public class Catalogue
 {
     private ArrayList<ArrayList<Product>> hashTable = new ArrayList();
-    private int maxSize = 1;
+    private int maxSize = 17;
 
     //Returns the hash code given a string id
     private int hashCode(String id)
@@ -27,5 +27,16 @@ public class Catalogue
         ArrayList<Product> temp = hashTable.get(index);
         temp.add(p);
         hashTable.set(index, temp);
+    }
+
+    //gets a product using it's id
+    public Product getProduct(int id)
+    {
+        for(Product p: hashTable.get(hashCode(id)))
+        {
+            if(p.getID() == id)
+                return p;
+        }
+        return null;
     }
 }
