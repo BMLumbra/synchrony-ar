@@ -23,7 +23,22 @@
             android:background="@color/light_gray" >
 
                 <TextView
-                    android:id="@+id/info_overlay_text"
+                    android:id="@+id/info_overlay_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:textColor="@color/green"
+                    android:gravity="center"
+                    android:text="@string/info_overlay_price_loading" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/darker_gray"/>
+
+                <TextView
+                    android:id="@+id/info_overlay_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
