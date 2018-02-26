@@ -49,6 +49,7 @@ import com.vuforia.samples.SampleApplication.utils.LoadingDialogHandler;
 import com.vuforia.samples.SampleApplication.utils.SampleApplicationGLView;
 import com.vuforia.samples.SampleApplication.utils.Texture;
 
+import java.util.Locale;
 import java.util.Vector;
 
 
@@ -572,7 +573,7 @@ public class MainActivity extends Activity implements SampleApplicationControl
         return false;
     }
 
-    public void displayInfoOverlay(final String itemName)
+    public void displayInfoOverlay(final String itemName, final double price)
     {
         runOnUiThread(new Runnable() {
 
@@ -582,8 +583,10 @@ public class MainActivity extends Activity implements SampleApplicationControl
                     LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
                     infoOverlay = (LinearLayout) inflater.inflate(R.layout.info_overlay, mUILayout, false);
                 }
-                TextView infoOverlayText = (TextView) infoOverlay.findViewById(R.id.info_overlay_text);
-                infoOverlayText.setText(itemName);
+                TextView infoOverlayName = (TextView) infoOverlay.findViewById(R.id.info_overlay_name);
+                infoOverlayName.setText(itemName);
+                TextView infoOverlayPrice = (TextView) infoOverlay.findViewById(R.id.info_overlay_price);
+                infoOverlayPrice.setText(String.format(Locale.US, "$%.2f", price));
 
                 if (mUILayout.findViewById(R.id.info_overlay) == null) {
                     mUILayout.addView(infoOverlay, new LayoutParams(LayoutParams.MATCH_PARENT,

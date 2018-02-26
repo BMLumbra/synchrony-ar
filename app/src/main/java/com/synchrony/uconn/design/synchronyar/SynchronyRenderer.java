@@ -205,7 +205,8 @@ public class SynchronyRenderer implements GLSurfaceView.Renderer, SampleAppRende
             if (!result.isOfType(ObjectTargetResult.getClassType()))
                 continue;
 
-            mActivity.displayInfoOverlay(trackable.getUserData().toString());
+            Product productWithId = Product.getProductById(trackable.getId());
+            mActivity.displayInfoOverlay(trackable.getUserData().toString(), productWithId.getPrice());
 
             ObjectTarget objectTarget = (ObjectTarget) trackable;
 
