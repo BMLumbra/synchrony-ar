@@ -8,6 +8,7 @@
     <color name="semi_transparent_black">#C8000000</color>
     <color name="transparent">#00000000</color>
     <color name="green">#008000</color>
+    <color name="red">#FF0000</color>
     
     <color name="overlay_bottom_bar_separators">#333333</color>
     <color name="overlay_bottom_bar_background">#1E1E1E</color>

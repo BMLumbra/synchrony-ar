@@ -573,7 +573,7 @@ public class MainActivity extends Activity implements SampleApplicationControl
         return false;
     }
 
-    public void displayInfoOverlay(final String itemName, final double price)
+    public void displayInfoOverlay(final String itemName, final double price, final boolean inStock)
     {
         runOnUiThread(new Runnable() {
 
@@ -587,6 +587,14 @@ public class MainActivity extends Activity implements SampleApplicationControl
                 infoOverlayName.setText(itemName);
                 TextView infoOverlayPrice = (TextView) infoOverlay.findViewById(R.id.info_overlay_price);
                 infoOverlayPrice.setText(String.format(Locale.US, "$%.2f", price));
+                TextView infoOverlayAvailability = (TextView) infoOverlay.findViewById(R.id.info_overlay_availability);
+                if (inStock) {
+                    infoOverlayAvailability.setText("In stock: Yes");
+                    infoOverlayAvailability.setTextColor(getResources().getColor(R.color.green));
+                } else {
+                    infoOverlayAvailability.setText("In stock: No");
+                    infoOverlayAvailability.setTextColor(getResources().getColor(R.color.red));
+                }
 
                 if (mUILayout.findViewById(R.id.info_overlay) == null) {
                     mUILayout.addView(infoOverlay, new LayoutParams(LayoutParams.MATCH_PARENT,
