@@ -6,77 +6,95 @@
     android:id="@+id/info_overlay"
     android:orientation="vertical" >
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="wrap_content"
+        <View
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/transparent"
-            android:orientation="horizontal" >
-        </LinearLayout>
+            android:background="@color/transparent" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/overlay_text_default"/>
+            android:background="@color/overlay_text_default" />
 
-        <TextView
-            android:id="@+id/info_overlay_availability"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
-            android:fontFamily="@font/montserrat"
-            android:text="@string/info_overlay_availability_loading"
-            android:background="@color/overlay_background" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/overlay_text_default"/>
-
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
             android:background="@color/overlay_background" >
 
                 <TextView
-                    android:id="@+id/info_overlay_price"
+                    android:id="@+id/info_overlay_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:textColor="@color/overlay_text_price"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
+                    android:fontFamily="@font/montserrat"
                     android:gravity="center"
-                    android:fontFamily="@font/montserrat"
-                    android:text="@string/info_overlay_price_loading" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/overlay_text_default"/>
-
-            <TextView
-                android:id="@+id/info_overlay_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/montserrat"
-                android:gravity="center"
-                android:textColor="@color/overlay_text_default"
-                android:text="@string/info_overlay_none" />
-
-                <Button
-                    android:id="@+id/info_overlay_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:background="@color/overlay_background"
                     android:textColor="@color/overlay_text_default"
-                    android:text="@string/info_overlay_button_text"
-                    android:onClick="showInfoActivity" />
+                    android:text="@string/info_overlay_none" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
+
+                        <TextView
+                            android:id="@+id/info_overlay_availability"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingTop="16dp"
+                            android:paddingBottom="8dp"
+                            android:textSize="22sp"
+                            android:fontFamily="@font/montserrat"
+                            android:text="@string/info_overlay_availability_loading" />
+
+                        <TextView
+                            android:id="@+id/info_overlay_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="16dp"
+                            android:textColor="@color/overlay_text_default"
+                            android:textSize="22sp"
+                            android:gravity="center"
+                            android:fontFamily="@font/montserrat"
+                            android:text="@string/info_overlay_price_loading" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+
+                    <ImageButton
+                        android:id="@+id/info_overlay_info_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:src="@drawable/ic_info_outline_black_24dp"
+                        android:background="@color/overlay_background"
+                        android:onClick="showInfoActivity" />
+
+                    <ImageButton
+                        android:id="@+id/info_overlay_cart_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:src="@drawable/ic_add_shopping_cart_black_24dp"
+                        android:background="@color/overlay_background" />
+
+                </LinearLayout>
         </LinearLayout>
 </LinearLayout>

@@ -13,17 +13,9 @@
     <color name="blue">#0000FF</color>
 
     <color name="overlay_background">#FFFFFF</color>
-    <color name="overlay_text_default">#0B3142</color>
-    <color name="overlay_text_available">#558B6E</color>
-    <color name="overlay_text_not_available">#E9806E</color>
-    <color name="overlay_text_price">#0892A5</color>
-
-    <color name="overlay_purple_trans">#C8773344</color>
-    <color name="overlay_purple">#773344</color>
-    <color name="overlay_blue">#9CFFFA</color>
-    <color name="overlay_green">#ACF39D</color>
-    <color name="overlay_red">#E85F5C</color>
-    <color name="overlay_tan">#E3B5A4</color>
+    <color name="overlay_text_default">#000000</color>
+    <color name="overlay_text_available">#1EB24F</color>
+    <color name="overlay_text_unavailable">#F21D1D</color>
     
     <color name="overlay_bottom_bar_separators">#333333</color>
     <color name="overlay_bottom_bar_background">#1E1E1E</color>

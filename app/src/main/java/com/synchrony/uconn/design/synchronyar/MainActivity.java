@@ -591,10 +591,10 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
                 TextView infoOverlayAvailability = (TextView) infoOverlay.findViewById(R.id.info_overlay_availability);
                 if (inStock) {
                     infoOverlayAvailability.setText(getResources().getText(R.string.info_overlay_availability_yes));
-                    infoOverlayAvailability.setTextColor(getResources().getColor(R.color.overlay_green));
+                    infoOverlayAvailability.setTextColor(getResources().getColor(R.color.overlay_text_available));
                 } else {
                     infoOverlayAvailability.setText(getResources().getText(R.string.info_overlay_availability_no));
-                    infoOverlayAvailability.setTextColor(getResources().getColor(R.color.overlay_red));
+                    infoOverlayAvailability.setTextColor(getResources().getColor(R.color.overlay_text_unavailable));
                 }
 
                 if (mUILayout.findViewById(R.id.info_overlay) == null) {
