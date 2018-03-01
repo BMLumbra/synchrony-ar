@@ -6,50 +6,95 @@
     android:id="@+id/info_overlay"
     android:orientation="vertical" >
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="wrap_content"
+        <View
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/transparent"
-            android:orientation="horizontal" >
-        </LinearLayout>
+            android:background="@color/transparent" />
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:background="@color/light_gray" >
+            android:background="@color/overlay_background" >
 
-                <TextView
-                    android:id="@+id/info_overlay_price"
+                <ImageView
+                    android:id="@+id/info_overlay_picture"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="128dp"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:textColor="@color/green"
-                    android:gravity="center"
-                    android:text="@string/info_overlay_price_loading" />
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/product_pb_natural_creamy" />
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/darker_gray"/>
-
-                <TextView
-                    android:id="@+id/info_overlay_name"
+                <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/info_overlay_none" />
+                    android:orientation="vertical" >
 
-                <Button
-                    android:id="@+id/info_overlay_button"
+                        <TextView
+                            android:id="@+id/info_overlay_availability"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:textSize="22sp"
+                            android:fontFamily="@font/montserrat"
+                            android:text="@string/info_overlay_availability_loading" />
+
+                        <TextView
+                            android:id="@+id/info_overlay_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:textColor="@color/overlay_text_default"
+                            android:textSize="22sp"
+                            android:gravity="center"
+                            android:fontFamily="@font/montserrat"
+                            android:text="@string/info_overlay_price_loading" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/info_overlay_button_text"
-                    android:onClick="showInfoActivity" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+
+                    <ImageButton
+                        android:id="@+id/info_overlay_info_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:src="@drawable/ic_info_outline_black_24dp"
+                        android:contentDescription="@string/more_info"
+                        android:background="@color/overlay_background"
+                        android:onClick="showInfoActivity" />
+
+                    <ImageButton
+                        android:id="@+id/info_overlay_cart_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:src="@drawable/ic_add_shopping_cart_black_24dp"
+                        android:contentDescription="@string/add_to_cart"
+                        android:background="@color/overlay_background" />
+
+                </LinearLayout>
         </LinearLayout>
 </LinearLayout>

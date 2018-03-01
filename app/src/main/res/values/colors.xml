@@ -5,9 +5,17 @@
     <color name="white">#FFFFFF</color>
     <color name="gray">#575757</color>
     <color name="light_gray">#D3D3D3</color>
+    <color name="semi_transparent_light_gray">#C8D3D3D3</color>
     <color name="semi_transparent_black">#C8000000</color>
     <color name="transparent">#00000000</color>
     <color name="green">#008000</color>
+    <color name="red">#FF0000</color>
+    <color name="blue">#0000FF</color>
+
+    <color name="overlay_background">#FFFFFF</color>
+    <color name="overlay_text_default">#000000</color>
+    <color name="overlay_text_available">#1EB24F</color>
+    <color name="overlay_text_unavailable">#F21D1D</color>
     
     <color name="overlay_bottom_bar_separators">#333333</color>
     <color name="overlay_bottom_bar_background">#1E1E1E</color>
