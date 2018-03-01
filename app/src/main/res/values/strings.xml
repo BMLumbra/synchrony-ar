@@ -72,6 +72,9 @@
     <string name="info_overlay_none">No object selected</string>
     <string name="info_overlay_price_loading">...</string>
     <string name="info_overlay_availability_loading">In stock: ...</string>
+    <string name="info_overlay_availability_yes">In stock</string>
+    <string name="info_overlay_availability_no">Not in stock</string>
+
     <string name="back">Back</string>
     <string name="name">Item Name:     </string>
     <string name="made_in">Made in:     </string>

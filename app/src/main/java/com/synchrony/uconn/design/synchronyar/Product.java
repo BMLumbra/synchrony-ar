@@ -100,7 +100,7 @@ public class Product
     }
 
     public static Product getProductById(int id) {
-        return new Product("Peanut Butter", "Jif", "", 3, 0);
+        return new Product("Peanut Butter", "Jif", "", 3, 1);
     }
 
 }
