@@ -80,6 +80,7 @@
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"
                         android:src="@drawable/ic_info_outline_black_24dp"
+                        android:contentDescription="@string/more_info"
                         android:background="@color/overlay_background"
                         android:onClick="showInfoActivity" />
 
@@ -93,6 +94,7 @@
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"
                         android:src="@drawable/ic_add_shopping_cart_black_24dp"
+                        android:contentDescription="@string/add_to_cart"
                         android:background="@color/overlay_background" />
 
                 </LinearLayout>
