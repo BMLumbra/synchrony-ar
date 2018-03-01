@@ -584,8 +584,6 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
                     LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
                     infoOverlay = (LinearLayout) inflater.inflate(R.layout.info_overlay, mUILayout, false);
                 }
-                TextView infoOverlayName = (TextView) infoOverlay.findViewById(R.id.info_overlay_name);
-                infoOverlayName.setText(itemName);
                 TextView infoOverlayPrice = (TextView) infoOverlay.findViewById(R.id.info_overlay_price);
                 infoOverlayPrice.setText(String.format(Locale.US, "$%.2f", price));
                 TextView infoOverlayAvailability = (TextView) infoOverlay.findViewById(R.id.info_overlay_availability);

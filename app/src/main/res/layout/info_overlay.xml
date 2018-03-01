@@ -23,30 +23,29 @@
             android:orientation="horizontal"
             android:background="@color/overlay_background" >
 
-                <TextView
-                    android:id="@+id/info_overlay_name"
+                <ImageView
+                    android:id="@+id/info_overlay_picture"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="128dp"
                     android:paddingTop="16dp"
                     android:paddingBottom="16dp"
-                    android:fontFamily="@font/montserrat"
-                    android:gravity="center"
-                    android:textColor="@color/overlay_text_default"
-                    android:text="@string/info_overlay_none" />
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/product_pb_natural_creamy" />
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical" >
 
                         <TextView
                             android:id="@+id/info_overlay_availability"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
                             android:gravity="center"
-                            android:paddingTop="16dp"
-                            android:paddingBottom="8dp"
                             android:textSize="22sp"
                             android:fontFamily="@font/montserrat"
                             android:text="@string/info_overlay_availability_loading" />
@@ -54,9 +53,8 @@
                         <TextView
                             android:id="@+id/info_overlay_price"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="8dp"
-                            android:paddingBottom="16dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
                             android:textColor="@color/overlay_text_default"
                             android:textSize="22sp"
                             android:gravity="center"
