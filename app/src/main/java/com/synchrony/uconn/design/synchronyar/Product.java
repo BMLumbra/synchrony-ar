@@ -6,6 +6,8 @@ import android.widget.ImageView;
 
 public class Product
 {
+    private int id;
+
     private String name;
 
     private String brand;
@@ -21,8 +23,9 @@ public class Product
     private ArrayList<String> tags = new ArrayList<>();
 
 
-    public Product(String _name, String _brand, String _miscInfo, double _price, int _stock, ArrayList<String> _tags)
+    public Product(int _id, String _name, String _brand, String _miscInfo, double _price, int _stock, ArrayList<String> _tags)
     {
+        id = _id;
         name = _name;
         brand = _brand;
         miscInfo = _miscInfo;
@@ -31,8 +34,9 @@ public class Product
         tags = _tags;
     }
 
-    public Product(String _name, String _brand, String _miscInfo, double _price, int _stock)
+    public Product(int _id, String _name, String _brand, String _miscInfo, double _price, int _stock)
     {
+        id = _id;
         name = _name;
         brand = _brand;
         miscInfo = _miscInfo;
@@ -40,12 +44,18 @@ public class Product
         price = _price;
     }
 
-    public Product(String _name, String _brand, double _price, int _stock)
+    public Product(int _id, String _name, String _brand, double _price, int _stock)
     {
+        id = _id;
         name = _name;
         brand = _brand;
         price = _price;
         stock = _stock;
+    }
+
+    public int getID()
+    {
+        return id;
     }
 
     public String getName()

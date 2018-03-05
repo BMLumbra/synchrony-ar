@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "17279428545",
+    "firebase_url": "https://synchrony-ar1.firebaseio.com",
+    "project_id": "synchrony-ar1",
+    "storage_bucket": "synchrony-ar1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:17279428545:android:43d9df3d0f5e87f6",
+        "android_client_info": {
+          "package_name": "com.synchrony.uconn.design.synchronyar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "17279428545-5ghirde7t29mfdqfhdnd7sm1egr59d6n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIQJ83RkxOzPhF-q3sSebp2htPxqvztKI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
