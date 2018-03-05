@@ -614,13 +614,5 @@ public class MainActivity extends Activity implements SampleApplicationControl
         startActivity(new Intent(MainActivity.this, UserInterface.class));
     }
 
-    private void loadImageURL(String url, Product p, int ColorID)
-    {
-        ImageView temp = null;
-        Glide
-                .with(context)
-                .load(url)
-                .into(temp);
-        p.addImg(ColorID, temp);
-    }
+
 }

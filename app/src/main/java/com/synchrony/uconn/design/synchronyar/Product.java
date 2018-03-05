@@ -2,6 +2,8 @@ package com.synchrony.uconn.design.synchronyar;
 
 import java.util.*;
 import android.widget.ImageView;
+import android.content.Context;
+import com.bumptech.glide.Glide;
 
 
 public class Product
@@ -18,12 +20,16 @@ public class Product
 
     private int stock;
 
+    private int ColorIDCounter = 0;
+
     private ArrayList<ArrayList<ImageView>> images = new ArrayList();
+
+    private ArrayList<String> imageURLs = new ArrayList<>();
 
     private ArrayList<String> tags = new ArrayList<>();
 
 
-    public Product(int _id, String _name, String _brand, String _miscInfo, double _price, int _stock, ArrayList<String> _tags)
+    public Product(int _id, String _name, String _brand, String _miscInfo, double _price, int _stock, ArrayList<String> _imageURLs, ArrayList<String> _tags)
     {
         id = _id;
         name = _name;
@@ -31,6 +37,7 @@ public class Product
         miscInfo = _miscInfo;
         price = _price;
         stock = _stock;
+        imageURLs = _imageURLs;
         tags = _tags;
     }
 
@@ -51,6 +58,13 @@ public class Product
         brand = _brand;
         price = _price;
         stock = _stock;
+    }
+
+    //Deletes images saved on cloud
+    public void imageSweeper()
+    {
+        images = new ArrayList<>();
+        ColorIDCounter = 0;
     }
 
     public int getID()
@@ -99,10 +113,14 @@ public class Product
             return false;
     }
 
+
     public void addImg(int ColorID, ImageView img)
     {
         images.get(ColorID).add(img);
+
     }
+
+
 
     public boolean searchTag(String s)
     {
@@ -111,6 +129,24 @@ public class Product
 
     public static Product getProductById(int id) {
         return new Product(0, "Peanut Butter", "Jif", "", 3, 0);
+    }
+
+    private void loadImage(String url, Context c)
+    {
+        ImageView temp = null;
+        Glide
+                .with(c)
+                .load(url)
+                .into(temp);
+        addImg(ColorIDCounter, temp);
+    }
+
+    private void loadAllImages(Context c)
+    {
+        for(String url: imageURLs)
+        {
+            loadImage(url, c);
+        }
     }
 
 }
