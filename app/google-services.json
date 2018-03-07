@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "967082388535",
+    "firebase_url": "https://synchrony-ar.firebaseio.com",
+    "project_id": "synchrony-ar",
+    "storage_bucket": "synchrony-ar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:967082388535:android:43d9df3d0f5e87f6",
+        "android_client_info": {
+          "package_name": "com.synchrony.uconn.design.synchronyar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "967082388535-sn9hu9793qf1kf72jjh845cot0i3fdfm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.synchrony.uconn.design.synchronyar",
+            "certificate_hash": "9500becf00149c43f342ccc1b461dd3e42d18d8f"
+          }
+        },
+        {
+          "client_id": "967082388535-jcnouesq5mmjfd2ciaa21c4hqfha4qu3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyc1xzNLPxpnhulXLUaNEdAtJi1OOJcv4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "967082388535-jcnouesq5mmjfd2ciaa21c4hqfha4qu3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
