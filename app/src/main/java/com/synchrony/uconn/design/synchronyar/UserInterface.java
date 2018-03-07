@@ -37,7 +37,7 @@ public class UserInterface extends Activity {
                 new NothingSelectedSpinnerAdapter(
                         adapter,
                         R.layout.contact_spinner_row_nothing_selected,
-                        // R.layout.contact_spinner_nothing_selected_dropdown, // Optional
+                        // R.layout.contact_spinner_nothing_selected_dropdown, // Optional?
                         this));*/
     }
 
