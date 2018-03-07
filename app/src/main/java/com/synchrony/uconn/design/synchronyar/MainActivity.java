@@ -21,6 +21,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -53,7 +54,7 @@ import java.util.Locale;
 import java.util.Vector;
 
 
-public class MainActivity extends Activity implements SampleApplicationControl
+public class MainActivity extends AppCompatActivity implements SampleApplicationControl
 {
     private Context context = MainActivity.this;
 
@@ -573,7 +574,7 @@ public class MainActivity extends Activity implements SampleApplicationControl
         return false;
     }
 
-    public void displayInfoOverlay(final String itemName, final double price)
+    public void displayInfoOverlay(final String itemName, final double price, final boolean inStock)
     {
         runOnUiThread(new Runnable() {
 
@@ -583,10 +584,16 @@ public class MainActivity extends Activity implements SampleApplicationControl
                     LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
                     infoOverlay = (LinearLayout) inflater.inflate(R.layout.info_overlay, mUILayout, false);
                 }
-                TextView infoOverlayName = (TextView) infoOverlay.findViewById(R.id.info_overlay_name);
-                infoOverlayName.setText(itemName);
                 TextView infoOverlayPrice = (TextView) infoOverlay.findViewById(R.id.info_overlay_price);
                 infoOverlayPrice.setText(String.format(Locale.US, "$%.2f", price));
+                TextView infoOverlayAvailability = (TextView) infoOverlay.findViewById(R.id.info_overlay_availability);
+                if (inStock) {
+                    infoOverlayAvailability.setText(getResources().getText(R.string.info_overlay_availability_yes));
+                    infoOverlayAvailability.setTextColor(getResources().getColor(R.color.overlay_text_available));
+                } else {
+                    infoOverlayAvailability.setText(getResources().getText(R.string.info_overlay_availability_no));
+                    infoOverlayAvailability.setTextColor(getResources().getColor(R.color.overlay_text_unavailable));
+                }
 
                 if (mUILayout.findViewById(R.id.info_overlay) == null) {
                     mUILayout.addView(infoOverlay, new LayoutParams(LayoutParams.MATCH_PARENT,
