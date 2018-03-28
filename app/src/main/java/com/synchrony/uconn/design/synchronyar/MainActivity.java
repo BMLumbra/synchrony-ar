@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
                 mIsDroidDevice = Build.MODEL.toLowerCase().startsWith(
                         "droid");
             } else {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setMessage(R.string.permission_request_denied_message)
                         .setTitle(R.string.permission_request_denied_title);
                 AlertDialog dialog = builder.create();
