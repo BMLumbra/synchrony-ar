@@ -66,6 +66,9 @@
     <string name="menu_button_yellow">Yellow</string>
     <string name="menu_button_green">Green</string>
 
+    <string name="permission_request_denied_message">Please enable all requested permissions to use this app. Close the app and try again.</string>
+    <string name="permission_request_denied_title">Permissions Denied</string>
+
     <string name="splash_screen_description">Vuforia Splash</string>
     <string name="title_activity_user_interface">UserInterface</string>
     <string name="info_overlay_button_text">More Info</string>
