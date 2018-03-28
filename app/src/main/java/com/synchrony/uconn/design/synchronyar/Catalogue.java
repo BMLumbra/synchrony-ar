@@ -3,9 +3,17 @@ package com.synchrony.uconn.design.synchronyar;
 /**
  * Created by ahouw on 2/19/2018.
  */
+import android.content.Context;
+
 import java.util.*;
 public class Catalogue
 {
+    public Context c;
+
+    public Catalogue(Context _c)
+    {
+        c = _c;
+    }
     private ArrayList<ArrayList<Product>> hashTable = new ArrayList();
     private int maxSize = 17;
 

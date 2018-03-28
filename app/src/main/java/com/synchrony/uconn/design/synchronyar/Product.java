@@ -24,12 +24,12 @@ public class Product
 
     private ArrayList<ArrayList<ImageView>> images = new ArrayList();
 
-    private ArrayList<String> imageURLs = new ArrayList<>();
+    private ArrayList<ArrayList<String>> imageURLs = new ArrayList<>();
 
     private ArrayList<String> tags = new ArrayList<>();
 
 
-    public Product(int _id, String _name, String _brand, String _miscInfo, double _price, int _stock, ArrayList<String> _imageURLs, ArrayList<String> _tags)
+    public Product(int _id, String _name, String _brand, String _miscInfo, double _price, int _stock, ArrayList<ArrayList<String>> _imageURLs, ArrayList<String> _tags)
     {
         id = _id;
         name = _name;
@@ -143,10 +143,25 @@ public class Product
 
     private void loadAllImages(Context c)
     {
-        for(String url: imageURLs)
+        int i = 0;
+        for(ArrayList<String> color: imageURLs)
         {
-            loadImage(url, c);
+            for(String url: imageURLs.get(i))
+            {
+                loadImage(url, c);
+            }
+            i++;
         }
+    }
+
+    private ArrayList<ArrayList<ImageView>> getImages()
+    {
+        return images;
+    }
+
+    private ArrayList<ImageView> getImages(int ColorID)
+    {
+        return images.get(ColorID);
     }
 
 }
