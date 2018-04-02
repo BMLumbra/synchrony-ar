@@ -13,6 +13,10 @@ public class Catalogue
     public Catalogue(Context _c)
     {
         c = _c;
+        for (int i = 0; i <= 17; i++)
+        {
+            hashTable.add(new ArrayList());
+        }
     }
     private ArrayList<ArrayList<Product>> hashTable = new ArrayList();
     private int maxSize = 17;
@@ -30,8 +34,9 @@ public class Catalogue
     }
 
     //Adds a product to the hash table using an index
-    private void addProduct(int index, Product p)
+    public void addProduct(int id, Product p)
     {
+        int index = hashCode(id);
         ArrayList<Product> temp = hashTable.get(index);
         temp.add(p);
         hashTable.set(index, temp);
