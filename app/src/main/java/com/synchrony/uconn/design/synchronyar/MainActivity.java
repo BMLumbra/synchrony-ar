@@ -715,7 +715,9 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
 
     public void showInfoActivity(View v)
     {
-        startActivity(new Intent(MainActivity.this, UserInterface.class));
+        Intent infoActivityIntent = new Intent(MainActivity.this, UserInterface.class);
+        infoActivityIntent.putExtra("currentProduct", currentProduct);
+        startActivity(infoActivityIntent);
     }
 
 
