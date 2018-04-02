@@ -10,17 +10,22 @@ countries.
 
 package com.synchrony.uconn.design.synchronyar;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -89,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
 
     LinearLayout infoOverlay = null;
 
+    int PERMISSION_REQUEST_START_VUFORIA = 0;
 
     // Called when the activity first starts or the user navigates back to an
     // activity.
@@ -98,21 +104,75 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
         Log.d(LOGTAG, "onCreate");
         super.onCreate(savedInstanceState);
 
-        vuforiaAppSession = new SampleApplicationSession(this);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED) {
+            requestNecessaryPermissions();
+        }
+        else {
+            vuforiaAppSession = new SampleApplicationSession(this);
 
-        startLoadingAnimation();
+            startLoadingAnimation();
 
-        vuforiaAppSession
-                .initAR(this, ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            vuforiaAppSession
+                    .initAR(this, ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        // Load any sample specific textures:
-        mTextures = new Vector<>();
-        loadTextures();
+            // Load any sample specific textures:
+            mTextures = new Vector<>();
+            loadTextures();
 
-        mGestureDetector = new GestureDetector(this, new GestureListener());
+            mGestureDetector = new GestureDetector(this, new GestureListener());
 
-        mIsDroidDevice = Build.MODEL.toLowerCase().startsWith(
-                "droid");
+            mIsDroidDevice = Build.MODEL.toLowerCase().startsWith(
+                    "droid");
+        }
+    }
+
+    private void requestNecessaryPermissions() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA,
+                        Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.INTERNET,
+                        Manifest.permission.ACCESS_NETWORK_STATE},
+            PERMISSION_REQUEST_START_VUFORIA);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        if (requestCode == PERMISSION_REQUEST_START_VUFORIA) {
+            boolean allGranted = false;
+            if (grantResults.length > 0) {
+                allGranted = true;
+                for (int e : grantResults) {
+                    if (e != PackageManager.PERMISSION_GRANTED) {
+                        allGranted = false;
+                        break;
+                    }
+                }
+            }
+            if (allGranted) {
+                vuforiaAppSession = new SampleApplicationSession(this);
+
+                startLoadingAnimation();
+
+                vuforiaAppSession
+                        .initAR(this, ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+                // Load any sample specific textures:
+                mTextures = new Vector<>();
+                loadTextures();
+
+                mGestureDetector = new GestureDetector(this, new GestureListener());
+
+                mIsDroidDevice = Build.MODEL.toLowerCase().startsWith(
+                        "droid");
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage(R.string.permission_request_denied_message)
+                        .setTitle(R.string.permission_request_denied_title);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        }
     }
 
     // We want to load specific textures from the APK, which we will later use
@@ -182,7 +242,9 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
-        vuforiaAppSession.onResume();
+        if (vuforiaAppSession != null) {
+            vuforiaAppSession.onResume();
+        }
     }
 
 
@@ -211,6 +273,7 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
 
         // Turn off the flash
         /*boolean flash = false;
+        /*boolean flash = false;
         if (mFlashOptionView != null && flash)
         {
             // OnCheckedChangeListener is called upon changing the checked state
@@ -223,12 +286,12 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
             }
         }*/
 
-        try
-        {
-            vuforiaAppSession.pauseAR();
-        } catch (SampleApplicationException e)
-        {
-            Log.e(LOGTAG, e.getString());
+        if (vuforiaAppSession != null) {
+            try {
+                vuforiaAppSession.pauseAR();
+            } catch (SampleApplicationException e) {
+                Log.e(LOGTAG, e.getString());
+            }
         }
     }
 
