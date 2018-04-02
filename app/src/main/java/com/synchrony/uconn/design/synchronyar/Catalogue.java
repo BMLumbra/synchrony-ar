@@ -10,9 +10,11 @@ public class Catalogue
 {
     public Context c;
 
+
     public Catalogue(Context _c)
     {
         c = _c;
+        //initializes capacity
         for (int i = 0; i <= 17; i++)
         {
             hashTable.add(new ArrayList());
