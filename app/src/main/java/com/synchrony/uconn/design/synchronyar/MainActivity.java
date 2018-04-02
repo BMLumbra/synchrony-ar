@@ -94,6 +94,8 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
 
     LinearLayout infoOverlay = null;
 
+    Product currentProduct = null;
+
     int PERMISSION_REQUEST_START_VUFORIA = 0;
 
     // Called when the activity first starts or the user navigates back to an
@@ -635,6 +637,38 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
     boolean isExtendedTrackingActive()
     {
         return false;
+    }
+
+    public void setCurrentProduct(Product currentProduct) {
+        this.currentProduct = currentProduct;
+    }
+
+    public void displayInfoOverlay() {
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                if (infoOverlay == null) {
+                    LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+                    infoOverlay = (LinearLayout) inflater.inflate(R.layout.info_overlay, mUILayout, false);
+                }
+                TextView infoOverlayPrice = (TextView) infoOverlay.findViewById(R.id.info_overlay_price);
+                infoOverlayPrice.setText(String.format(Locale.US, "$%.2f", currentProduct.getPrice()));
+                TextView infoOverlayAvailability = (TextView) infoOverlay.findViewById(R.id.info_overlay_availability);
+                if (currentProduct.inStock()) {
+                    infoOverlayAvailability.setText(getResources().getText(R.string.info_overlay_availability_yes));
+                    infoOverlayAvailability.setTextColor(getResources().getColor(R.color.overlay_text_available));
+                } else {
+                    infoOverlayAvailability.setText(getResources().getText(R.string.info_overlay_availability_no));
+                    infoOverlayAvailability.setTextColor(getResources().getColor(R.color.overlay_text_unavailable));
+                }
+
+                if (mUILayout.findViewById(R.id.info_overlay) == null) {
+                    mUILayout.addView(infoOverlay, new LayoutParams(LayoutParams.MATCH_PARENT,
+                            LayoutParams.MATCH_PARENT));
+                }
+            }
+        });
     }
 
     public void displayInfoOverlay(final String itemName, final double price, final boolean inStock)
