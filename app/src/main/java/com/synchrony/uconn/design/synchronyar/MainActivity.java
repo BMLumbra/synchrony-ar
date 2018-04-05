@@ -57,6 +57,8 @@ import com.vuforia.samples.SampleApplication.utils.Texture;
 
 import java.util.Locale;
 import java.util.Vector;
+import java.util.Scanner;
+import java.io.*;
 
 
 public class MainActivity extends AppCompatActivity implements SampleApplicationControl
@@ -90,6 +92,15 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
     // Alert Dialog used to display SDK errors
     private AlertDialog mErrorDialog;
 
+    private Catalogue catalogue = new Catalogue(this);
+
+
+    //Input Stream for text file of product info
+   private InputStream input;
+
+   //Scanner for creating products
+   private Scanner sc;
+
     boolean mIsDroidDevice = false;
 
     LinearLayout infoOverlay = null;
@@ -102,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
     protected void onCreate(Bundle savedInstanceState)
     {
         Log.d(LOGTAG, "onCreate");
+        loadProductTxt();
         super.onCreate(savedInstanceState);
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
@@ -127,6 +139,17 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
             mIsDroidDevice = Build.MODEL.toLowerCase().startsWith(
                     "droid");
         }
+    }
+
+    private void loadProductTxt()
+    {
+        try
+        {
+            input = getAssets().open("products.txt");
+        }
+        catch(IOException e){}
+
+        sc = new Scanner(input);
     }
 
     private void requestNecessaryPermissions() {
@@ -330,7 +353,7 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
         mGlView = new SampleApplicationGLView(this);
         mGlView.init(translucent, depthSize, stencilSize);
 
-        mRenderer = new SynchronyRenderer(this, vuforiaAppSession);
+        mRenderer = new SynchronyRenderer(this, vuforiaAppSession, catalogue);
         mRenderer.setTextures(mTextures);
         mGlView.setRenderer(mRenderer);
 
@@ -393,6 +416,9 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
             {
                 trackable.startExtendedTracking();
             }
+
+            Product p = new Product(trackable.getId(), sc.next(), sc.next(), "", sc.nextInt(), sc.nextInt());
+            catalogue.addProduct(p);
 
             String name = trackable.getName();
             trackable.setUserData(name);

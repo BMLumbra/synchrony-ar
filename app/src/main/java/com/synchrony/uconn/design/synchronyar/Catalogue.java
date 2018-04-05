@@ -36,9 +36,9 @@ public class Catalogue
     }
 
     //Adds a product to the hash table using an index
-    public void addProduct(int id, Product p)
+    public void addProduct(Product p)
     {
-        int index = hashCode(id);
+        int index = hashCode(p.getID());
         ArrayList<Product> temp = hashTable.get(index);
         temp.add(p);
         hashTable.set(index, temp);

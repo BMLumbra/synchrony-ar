@@ -70,7 +70,7 @@ public class SynchronyRenderer implements GLSurfaceView.Renderer, SampleAppRende
 
 
     public SynchronyRenderer(MainActivity activity,
-                                SampleApplicationSession session)
+                                SampleApplicationSession session, Catalogue _catalogue)
     {
         mActivity = activity;
         vuforiaAppSession = session;
@@ -79,8 +79,7 @@ public class SynchronyRenderer implements GLSurfaceView.Renderer, SampleAppRende
         // the device mode AR/VR and stereo mode
         mSampleAppRenderer = new SampleAppRenderer(this, mActivity, Device.MODE.MODE_AR, false, 10f, 5000f);
         catalogue = new Catalogue(activity);
-        Product jif = new Product(1, "Peanut Butter", "Jif", "", 3, 0);
-        catalogue.addProduct(1, jif);
+        catalogue = _catalogue;
     }
 
     private void loadCatalogue()
