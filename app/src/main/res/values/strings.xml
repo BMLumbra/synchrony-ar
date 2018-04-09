@@ -79,11 +79,17 @@
     <string name="info_overlay_availability_no">Out of stock</string>
     <string name="more_info">More info</string>
     <string name="add_to_cart">Add to cart</string>
+    <string name="checkout_button_text">Checkout</string>
+    <string name="added_to_cart">Item added to cart</string>
+    <string name="not_added_to_cart">Item not added to cart, out of stock</string>
+    <string name="checkout">Checkout</string>
 
     <string name="back">Back</string>
     <string name="name">Item Name:     </string>
     <string name="made_in">Made in:     </string>
     <string name="colors_available">Colors Available:     </string>
     <string name="sizes_available">Sizes Available:     </string>
+    <string name="title_activity_checkout">CheckoutActivity</string>
+    <string name="title_activity_main2">Main2Activity</string>
 
 </resources>

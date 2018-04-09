@@ -27,7 +27,7 @@ public class Product implements Parcelable
 
     private int colorIDCounter = 0;
 
-    private ArrayList<ArrayList<ImageView>> images = new ArrayList();
+    private ArrayList<ArrayList<ImageView>> images = new ArrayList<>();
 
     private ArrayList<ArrayList<String>> imageURLs = new ArrayList<>();
 
@@ -146,8 +146,10 @@ public class Product implements Parcelable
 
     public void addImg(int ColorID, ImageView img)
     {
+        while (images.size() <= ColorID) {
+            images.add(new ArrayList<ImageView>());
+        }
         images.get(ColorID).add(img);
-
     }
 
 
@@ -157,8 +159,12 @@ public class Product implements Parcelable
         return tags.contains(s);
     }
 
-    public static Product getProductById(int id) {
-        return new Product(0, "Peanut Butter", "Jif", "", 3, 0);
+    public static Product getProductById(int id, Context context) {
+        Product result = new Product(0, "Peanut Butter", "Jif", "", 3, 3);
+        ImageView image = new ImageView(context);
+        image.setBackgroundResource(R.drawable.product_pb_natural_creamy);
+        result.addImg(0, image);
+        return result;
     }
 
     private void loadImage(String url, Context c)
@@ -192,6 +198,10 @@ public class Product implements Parcelable
     private ArrayList<ImageView> getImages(int ColorID)
     {
         return images.get(ColorID);
+    }
+
+    public ImageView getPreviewImageView() {
+        return images.get(0).get(0);
     }
 
     @Override
