@@ -4,11 +4,13 @@ import java.util.*;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.widget.ImageView;
 import android.content.Context;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
 
 
 public class Product implements Parcelable
@@ -29,12 +31,12 @@ public class Product implements Parcelable
 
     private ArrayList<ArrayList<ImageView>> images = new ArrayList<>();
 
-    private ArrayList<ArrayList<String>> imageURLs = new ArrayList<>();
+    private ArrayList<String> imageURLs = new ArrayList<>();
 
     private ArrayList<String> tags = new ArrayList<>();
 
 
-    public Product(int _id, String _name, String _brand, String _miscInfo, double _price, int _stock, ArrayList<ArrayList<String>> _imageURLs, ArrayList<String> _tags)
+    public Product(int _id, String _name, String _brand, String _miscInfo, double _price, int _stock, ArrayList<String> _imageURLs, ArrayList<String> _tags)
     {
         id = _id;
         name = _name;
@@ -73,7 +75,7 @@ public class Product implements Parcelable
         price = in.readDouble();
         stock = in.readInt();
         colorIDCounter = in.readInt();
-        in.readList(images, ArrayList.class.getClassLoader());
+        //in.readList(images, ArrayList.class.getClassLoader());
         in.readList(imageURLs, ArrayList.class.getClassLoader());
         in.readList(tags, ArrayList.class.getClassLoader());
     }
@@ -137,19 +139,23 @@ public class Product implements Parcelable
 
     public boolean inStock()
     {
-        if(stock > 0)
+        if (stock > 0)
             return true;
         else
             return false;
     }
 
-
+/*
     public void addImg(int ColorID, ImageView img)
     {
         while (images.size() <= ColorID) {
             images.add(new ArrayList<ImageView>());
         }
         images.get(ColorID).add(img);
+    }*/
+
+    public void addImgUrl(String url) {
+        imageURLs.add(url);
     }
 
 
@@ -161,12 +167,14 @@ public class Product implements Parcelable
 
     public static Product getProductById(int id, Context context) {
         Product result = new Product(0, "Peanut Butter", "Jif", "", 3, 3);
-        ImageView image = new ImageView(context);
-        image.setBackgroundResource(R.drawable.product_pb_natural_creamy);
-        result.addImg(0, image);
+        result.addImgUrl("https://s3.us-east-2.amazonaws.com/jms-s3-cx-rel-p-pmc4/assets/jif/images/products/main-images/product_pb_natural_creamy.png");
         return result;
     }
 
+    public ArrayList<String> getImageURLs() {
+        return imageURLs;
+    }
+/*
     private void loadImage(String url, Context c)
     {
         ImageView temp = null;
@@ -203,7 +211,7 @@ public class Product implements Parcelable
     public ImageView getPreviewImageView() {
         return images.get(0).get(0);
     }
-
+*/
     @Override
     public int describeContents() {
         return 0;
@@ -218,7 +226,7 @@ public class Product implements Parcelable
         dest.writeDouble(price);
         dest.writeInt(stock);
         dest.writeInt(colorIDCounter);
-        dest.writeList(images);
+        //dest.writeList(images);
         dest.writeList(imageURLs);
         dest.writeList(tags);
     }

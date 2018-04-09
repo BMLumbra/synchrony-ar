@@ -11,31 +11,35 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
+import java.util.Locale;
+
 public class CartListItemAdapter extends ArrayAdapter {
-    private final Activity context;
+    private final Activity activity;
     private final Product[] products;
     private final Integer[] quantities;
 
-    public CartListItemAdapter(Activity context, Product[] productArray, Integer[] quantityArray) {
-        super(context, R.layout.cart_item, productArray);
+    public CartListItemAdapter(Activity activity, Product[] productArray, Integer[] quantityArray) {
+        super(activity, R.layout.cart_item, productArray);
 
-        this.context = context;
+        this.activity = activity;
         this.products = productArray;
         this.quantities = quantityArray;
     }
 
     @NonNull public View getView(int position, View view, @NonNull ViewGroup parent) {
-        LayoutInflater inflater = context.getLayoutInflater();
+        LayoutInflater inflater = activity.getLayoutInflater();
         view = inflater.inflate(R.layout.cart_item, parent, false);
 
         ImageView productImageView = view.findViewById(R.id.cart_item_image);
-        productImageView = products[position].getPreviewImageView();
+        Glide.with(activity).load(products[position].getImageURLs().get(0)).into(productImageView);
 
         TextView productNameView = view.findViewById(R.id.cart_item_name);
         productNameView.setText(products[position].getName());
 
         EditText quantityEditTextView = view.findViewById(R.id.cart_item_quantity);
-        quantityEditTextView.setText(quantities[position]);
+        quantityEditTextView.setText(String.format(Locale.US, "%d", quantities[position]));
 
         return view;
     }
