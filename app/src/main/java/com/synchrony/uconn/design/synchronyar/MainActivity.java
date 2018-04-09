@@ -411,8 +411,12 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
             return false;
 
         int numTrackables = mCurrentDataset.getNumTrackables();
+
+        sc.useDelimiter("\\s*:\\s*");
+
         for (int count = 0; count < numTrackables; count++)
         {
+
             Trackable trackable = mCurrentDataset.getTrackable(count);
             if(isExtendedTrackingActive())
             {
@@ -420,14 +424,24 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
             }
 
             Product p = new Product(trackable.getId(), sc.next(), sc.next(), "", sc.nextInt(), sc.nextInt());
-            catalogue.addProduct(p);
 
+
+            int colorID;
+
+            while(!sc.hasNext("\\s*;\\s*"))
+            {
+                sc.next();
+                sc.next();
+                sc.next();
+            }
+
+            catalogue.addProduct(p);
             String name = trackable.getName();
             trackable.setUserData(name);
             Log.d(LOGTAG, "UserData:Set the following user data "
                     + trackable.getUserData());
         }
-
+        sc.close();
         return true;
     }
 
