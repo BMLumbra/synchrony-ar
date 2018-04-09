@@ -1,12 +1,17 @@
 package com.synchrony.uconn.design.synchronyar;
 
 import java.util.*;
+
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.widget.ImageView;
 import android.content.Context;
 import com.bumptech.glide.Glide;
 
 
-public class Product
+public class Product implements Parcelable
 {
     private int id;
 
@@ -20,7 +25,7 @@ public class Product
 
     private int stock;
 
-    private int ColorIDCounter = 0;
+    private int colorIDCounter = 0;
 
     private ArrayList<ArrayList<ImageView>> images = new ArrayList();
 
@@ -60,11 +65,36 @@ public class Product
         stock = _stock;
     }
 
+    public Product(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        brand = in.readString();
+        miscInfo = in.readString();
+        price = in.readDouble();
+        stock = in.readInt();
+        colorIDCounter = in.readInt();
+        in.readList(images, ArrayList.class.getClassLoader());
+        in.readList(imageURLs, ArrayList.class.getClassLoader());
+        in.readList(tags, ArrayList.class.getClassLoader());
+    }
+
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
+
     //Deletes images saved on cloud
     public void imageSweeper()
     {
         images = new ArrayList<>();
-        ColorIDCounter = 0;
+        colorIDCounter = 0;
     }
 
     public int getID()
@@ -138,7 +168,7 @@ public class Product
                 .with(c)
                 .load(url)
                 .into(temp);
-        addImg(ColorIDCounter, temp);
+        addImg(colorIDCounter, temp);
     }
 
     private void loadAllImages(Context c)
@@ -164,4 +194,22 @@ public class Product
         return images.get(ColorID);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(brand);
+        dest.writeString(miscInfo);
+        dest.writeDouble(price);
+        dest.writeInt(stock);
+        dest.writeInt(colorIDCounter);
+        dest.writeList(images);
+        dest.writeList(imageURLs);
+        dest.writeList(tags);
+    }
 }
