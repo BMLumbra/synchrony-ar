@@ -412,7 +412,6 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
 
         int numTrackables = mCurrentDataset.getNumTrackables();
 
-        sc.useDelimiter("\\s*:\\s*");
 
         for (int count = 0; count < numTrackables; count++)
         {
@@ -430,9 +429,14 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
 
             while(!sc.hasNext("\\s*;\\s*"))
             {
-                sc.next();
-                sc.next();
-                sc.next();
+                sc.next(); //Color ID label
+                colorID = sc.nextInt(); //Color ID value
+
+                //Adds url to product
+                while((!sc.hasNext("\\s*ColorID\\s*"))&&(!sc.hasNext("\\s*;\\s*")))
+                {
+                    p.addImgURL(colorID, sc.next());
+                }
             }
 
             catalogue.addProduct(p);

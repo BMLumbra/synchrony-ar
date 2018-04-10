@@ -146,9 +146,8 @@ public class Product implements Parcelable
 
     public void addImgURL(int ColorID, String url)
     {
-        ArrayList<String> t = new ArrayList<>();
-        t.add(url);
-        imageURLs.add(t);
+        imageURLs.ensureCapacity(ColorID + 1);
+        imageURLs.get(ColorID).add((url));
     }
 
     public void addImg(int ColorID, ImageView img)
