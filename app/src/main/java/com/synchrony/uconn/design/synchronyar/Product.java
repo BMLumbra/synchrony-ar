@@ -147,7 +147,6 @@ public class Product implements Parcelable
     public void addImg(int ColorID, ImageView img)
     {
         images.get(ColorID).add(img);
-
     }
 
 
