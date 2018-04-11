@@ -46,8 +46,11 @@
         </activity>
         <activity
             android:name=".UserInterface"
-            android:label="@string/title_activity_user_interface"></activity>
-
+            android:label="@string/title_activity_user_interface" />
+        <activity
+            android:name=".CheckoutActivity"
+            android:label="@string/title_activity_checkout"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 
 </manifest>

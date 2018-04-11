@@ -24,6 +24,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +35,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -103,9 +106,13 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
 
     boolean mIsDroidDevice = false;
 
-    LinearLayout infoOverlay = null;
+    CoordinatorLayout infoOverlay = null;
 
     Product currentProduct = null;
+
+    Cart cart = new Cart();
+
+    public static int RESULT_CART_INFO = 0;
 
     int PERMISSION_REQUEST_START_VUFORIA = 0;
 
@@ -694,7 +701,7 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
             public void run() {
                 if (infoOverlay == null) {
                     LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
-                    infoOverlay = (LinearLayout) inflater.inflate(R.layout.info_overlay, mUILayout, false);
+                    infoOverlay = (CoordinatorLayout) inflater.inflate(R.layout.info_overlay, mUILayout, false);
                 }
                 TextView infoOverlayPrice = (TextView) infoOverlay.findViewById(R.id.info_overlay_price);
                 infoOverlayPrice.setText(String.format(Locale.US, "$%.2f", currentProduct.getPrice()));
@@ -707,7 +714,27 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
                     infoOverlayAvailability.setTextColor(getResources().getColor(R.color.overlay_text_unavailable));
                 }
 
-                if (mUILayout.findViewById(R.id.info_overlay) == null) {
+                ImageButton addToCartButton = infoOverlay.findViewById(R.id.info_overlay_cart_button);
+                addToCartButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Snackbar addedToCartMessage;
+                        if (cart.addToCart(currentProduct)) {
+                            addedToCartMessage = Snackbar.make(infoOverlay, R.string.added_to_cart, Snackbar.LENGTH_LONG);
+                        } else {
+                            addedToCartMessage = Snackbar.make(infoOverlay, R.string.not_added_to_cart, Snackbar.LENGTH_LONG);
+                        }
+                        addedToCartMessage.setAction(R.string.checkout, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showCheckoutActivity();
+                            }
+                        });
+                        addedToCartMessage.show();
+                    }
+                });
+
+                if (mUILayout.findViewById(R.id.info_overlay_coordinator) == null) {
                     mUILayout.addView(infoOverlay, new LayoutParams(LayoutParams.MATCH_PARENT,
                             LayoutParams.MATCH_PARENT));
                 }
@@ -723,7 +750,7 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
             public void run() {
                 if (infoOverlay == null) {
                     LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
-                    infoOverlay = (LinearLayout) inflater.inflate(R.layout.info_overlay, mUILayout, false);
+                    infoOverlay = (CoordinatorLayout) inflater.inflate(R.layout.info_overlay, mUILayout, false);
                 }
                 TextView infoOverlayPrice = (TextView) infoOverlay.findViewById(R.id.info_overlay_price);
                 infoOverlayPrice.setText(String.format(Locale.US, "$%.2f", price));
@@ -736,7 +763,7 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
                     infoOverlayAvailability.setTextColor(getResources().getColor(R.color.overlay_text_unavailable));
                 }
 
-                if (mUILayout.findViewById(R.id.info_overlay) == null) {
+                if (mUILayout.findViewById(R.id.info_overlay_coordinator) == null) {
                     mUILayout.addView(infoOverlay, new LayoutParams(LayoutParams.MATCH_PARENT,
                             LayoutParams.MATCH_PARENT));
                 }
@@ -750,7 +777,7 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
 
             @Override
             public void run() {
-                if (mUILayout.findViewById(R.id.info_overlay) != null) {
+                if (mUILayout.findViewById(R.id.info_overlay_coordinator) != null) {
                     mUILayout.removeView(infoOverlay);
                 }
             }
@@ -764,5 +791,21 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
         startActivity(infoActivityIntent);
     }
 
+    public void showCheckoutActivity()
+    {
+        Intent infoActivityIntent = new Intent(MainActivity.this, CheckoutActivity.class);
+        infoActivityIntent.putExtra("cart", cart);
+        startActivityForResult(infoActivityIntent, RESULT_CART_INFO);
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RESULT_CART_INFO) {
+            if (resultCode == RESULT_OK) {
+                cart = data.getExtras().getParcelable("cart");
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }
