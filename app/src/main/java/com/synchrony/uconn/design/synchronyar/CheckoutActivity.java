@@ -1,5 +1,6 @@
 package com.synchrony.uconn.design.synchronyar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -31,6 +32,10 @@ public class CheckoutActivity extends AppCompatActivity {
 
         cart = getIntent().getExtras().getParcelable("cart");
 
+        final ListView cartListView = findViewById(R.id.cart_list_view);
+        final CartListItemAdapter cartListAdapter = new CartListItemAdapter(this, cart);
+        cartListView.setAdapter(cartListAdapter);
+
         Button checkoutButton = findViewById(R.id.checkout_button);
         checkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,11 +43,17 @@ public class CheckoutActivity extends AppCompatActivity {
                 // TODO: Display checkout info
 
                 cart.clear();
+                cartListAdapter.notifyDataSetChanged();
             }
         });
+    }
 
-        final ListView cartListView = findViewById(R.id.cart_list_view);
-        CartListItemAdapter cartListAdapter = new CartListItemAdapter(this, cart, cartListView);
-        cartListView.setAdapter(cartListAdapter);
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra("cart", cart);
+        setResult(RESULT_OK, intent);
+
+        super.onBackPressed();
     }
 }

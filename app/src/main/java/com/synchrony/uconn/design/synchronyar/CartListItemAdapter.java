@@ -27,14 +27,12 @@ import java.util.Map;
 public class CartListItemAdapter extends ArrayAdapter {
     private final Activity activity;
     private final Cart cart;
-    private ListView cartListView;
 
-    public CartListItemAdapter(Activity activity, Cart cart, ListView cartListView) {
+    public CartListItemAdapter(Activity activity, Cart cart) {
         super(activity, R.layout.cart_item, cart.getItemQuantitySet().toArray());
 
         this.activity = activity;
         this.cart = cart;
-        this.cartListView = cartListView;
     }
 
     @NonNull public View getView(final int position, View view, @NonNull ViewGroup parent) {

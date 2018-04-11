@@ -101,6 +101,8 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
 
     Cart cart = new Cart();
 
+    public static int RESULT_CART_INFO = 0;
+
     int PERMISSION_REQUEST_START_VUFORIA = 0;
 
     // Called when the activity first starts or the user navigates back to an
@@ -749,6 +751,17 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
     {
         Intent infoActivityIntent = new Intent(MainActivity.this, CheckoutActivity.class);
         infoActivityIntent.putExtra("cart", cart);
-        startActivity(infoActivityIntent);
+        startActivityForResult(infoActivityIntent, RESULT_CART_INFO);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RESULT_CART_INFO) {
+            if (resultCode == RESULT_OK) {
+                cart = data.getExtras().getParcelable("cart");
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

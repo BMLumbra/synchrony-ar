@@ -42,6 +42,8 @@ public class Cart implements Parcelable
     public boolean addToCart(Product p) {
         if(p.inStock())
         {
+            if (contentQuantities.containsKey(p)) return true;
+
             contentQuantities.put(p, 1);
             total += p.getPrice();
             return true;

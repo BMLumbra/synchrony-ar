@@ -230,4 +230,14 @@ public class Product implements Parcelable
         dest.writeList(imageURLs);
         dest.writeList(tags);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof Product && (((Product) other).getID() == this.getID());
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
 }
