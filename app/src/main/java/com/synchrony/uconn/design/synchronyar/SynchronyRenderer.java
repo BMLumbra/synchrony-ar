@@ -66,9 +66,11 @@ public class SynchronyRenderer implements GLSurfaceView.Renderer, SampleAppRende
 
     private boolean mIsActive = false;
 
+    Catalogue catalogue;
+
 
     public SynchronyRenderer(MainActivity activity,
-                                SampleApplicationSession session)
+                                SampleApplicationSession session, Catalogue _catalogue)
     {
         mActivity = activity;
         vuforiaAppSession = session;
@@ -76,8 +78,14 @@ public class SynchronyRenderer implements GLSurfaceView.Renderer, SampleAppRende
         // SampleAppRenderer used to encapsulate the use of RenderingPrimitives setting
         // the device mode AR/VR and stereo mode
         mSampleAppRenderer = new SampleAppRenderer(this, mActivity, Device.MODE.MODE_AR, false, 10f, 5000f);
+        catalogue = new Catalogue(activity);
+        catalogue = _catalogue;
     }
 
+    private void loadCatalogue()
+    {
+
+    }
 
     // Called to draw the current frame.
     @Override
@@ -205,7 +213,8 @@ public class SynchronyRenderer implements GLSurfaceView.Renderer, SampleAppRende
             if (!result.isOfType(ObjectTargetResult.getClassType()))
                 continue;
 
-            Product productWithId = Product.getProductById(trackable.getId(), mActivity);
+            Product productWithId = catalogue.getProduct(trackable.getId());
+            
             mActivity.setCurrentProduct(productWithId);
             //mActivity.displayInfoOverlay(productWithId.getName(), productWithId.getPrice(),
             //       productWithId.inStock());

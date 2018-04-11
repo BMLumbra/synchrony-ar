@@ -131,6 +131,18 @@ public class Product implements Parcelable
         imageURLs.add(url);
     }
 
+    public void addImgURL(int ColorID, String url)
+    {
+        imageURLs.ensureCapacity(ColorID + 1);
+        imageURLs.get(ColorID).add((url));
+    }
+
+    public void addImg(int ColorID, ImageView img)
+    {
+        images.get(ColorID).add(img);
+
+    }
+
     public boolean searchTag(String s)
     {
         return tags.contains(s);

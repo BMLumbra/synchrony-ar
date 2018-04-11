@@ -2,9 +2,15 @@ package com.synchrony.uconn.design.synchronyar;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.speech.SpeechRecognizer;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class UserInterface extends Activity {
     Product currentProduct = null;
@@ -15,7 +21,29 @@ public class UserInterface extends Activity {
         setContentView(R.layout.activity_user_interface);
 
         currentProduct = getIntent().getExtras().getParcelable("currentProduct");
+        // Sets each of the TextViews with the information on the product from database
+        TextView nameText = (TextView) findViewById(R.id.textView);
+        nameText.setText(currentProduct.getName());
+        TextView brandText = (TextView) findViewById(R.id.textView2);
+        brandText.setText(currentProduct.getBrand());
+        TextView infoText = (TextView) findViewById(R.id.textView3);
+        infoText.setText(currentProduct.getInfo());
 
+        // Sets the two spinners to have the colors and the sizes available
+        Spinner colorSpinner = (Spinner) findViewById(R.id.spinner_colors);
+        Spinner sizeSpinner = (Spinner) findViewById(R.id.spinner_size);
+        String[] sizes = new String[]{"Small", "Medium", "Large", "X-Large"};
+        String[] colors = new String[]{"Blue", "Black", "Red", "Green"};
+
+        ArrayAdapter<String> colorAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, colors);
+        colorAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        colorSpinner.setAdapter(colorAdapter);
+
+        ArrayAdapter<String> sizesAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, sizes);
+        sizesAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        sizeSpinner.setAdapter(sizesAdapter);
+
+        // Back button to go back to main activity
         Button button= (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -23,6 +51,7 @@ public class UserInterface extends Activity {
                 finish();
             }
         });
+
     }
 
 }
