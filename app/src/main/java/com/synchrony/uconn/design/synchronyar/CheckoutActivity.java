@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -23,6 +25,8 @@ public class CheckoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Checkout");
+        toolbar.setTitleTextColor(getResources().getColor(R.color.black));
         setSupportActionBar(toolbar);
 
         cart = getIntent().getExtras().getParcelable("cart");
@@ -37,19 +41,8 @@ public class CheckoutActivity extends AppCompatActivity {
             }
         });
 
-        ListView cartListView = findViewById(R.id.cart_list_view);
-        Set<Map.Entry<Product, Integer>> cartItemQuantitySet = cart.getItemQuantitySet();
-        Product[] cartProductList = new Product[cartItemQuantitySet.size()];
-        Integer[] cartQuantityList = new Integer[cartItemQuantitySet.size()];
-
-        int i = 0;
-        for (Map.Entry<Product, Integer> e : cartItemQuantitySet) {
-            cartProductList[i] = e.getKey();
-            cartQuantityList[i] = e.getValue();
-            ++i;
-        }
-
-        CartListItemAdapter cartListAdapter = new CartListItemAdapter(this, cartProductList, cartQuantityList);
+        final ListView cartListView = findViewById(R.id.cart_list_view);
+        CartListItemAdapter cartListAdapter = new CartListItemAdapter(this, cart, cartListView);
         cartListView.setAdapter(cartListAdapter);
     }
 }
