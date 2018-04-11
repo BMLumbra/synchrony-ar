@@ -2,10 +2,12 @@ package com.synchrony.uconn.design.synchronyar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -49,6 +51,9 @@ public class CheckoutActivity extends AppCompatActivity {
 
                 cart.clear();
                 cartListAdapter.notifyDataSetChanged();
+
+                Snackbar finishedSnackbar = Snackbar.make(CheckoutActivity.this.findViewById(android.R.id.content), "Cart sent to store for processing", Snackbar.LENGTH_LONG);
+                finishedSnackbar.show();
             }
         });
     }

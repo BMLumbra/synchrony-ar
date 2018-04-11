@@ -65,6 +65,7 @@ public class Cart implements Parcelable
 
     public void clear() {
         contentQuantities.clear();
+        total = 0;
     }
 
     public double getTotal() {
