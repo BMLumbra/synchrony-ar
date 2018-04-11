@@ -4,6 +4,7 @@ import java.util.*;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.ImageView;
 
 public class Product implements Parcelable
 {
@@ -24,6 +25,8 @@ public class Product implements Parcelable
     private ArrayList<String> imageURLs = new ArrayList<>();
 
     private ArrayList<String> tags = new ArrayList<>();
+
+    private HashMap<Integer, ArrayList<String>> imageURLsByColor = new HashMap<>();
 
 
     public Product(int _id, String _name, String _brand, String _miscInfo, double _price, int _stock, ArrayList<String> _imageURLs, ArrayList<String> _tags)
@@ -133,25 +136,22 @@ public class Product implements Parcelable
 
     public void addImgURL(int ColorID, String url)
     {
-        imageURLs.ensureCapacity(ColorID + 1);
-        imageURLs.get(ColorID).add((url));
+        imageURLs.add(url);
+        if (!imageURLsByColor.containsKey(ColorID)) {
+            imageURLsByColor.put(ColorID, new ArrayList<String>());
+        }
+        imageURLsByColor.get(ColorID).add(url);
     }
 
-    public void addImg(int ColorID, ImageView img)
+    /*public void addImg(int ColorID, ImageView img)
     {
         images.get(ColorID).add(img);
 
-    }
+    }*/
 
     public boolean searchTag(String s)
     {
         return tags.contains(s);
-    }
-
-    public static Product getProductById(int id) {
-        Product result = new Product(0, "Peanut Butter", "Jif", "", 3, 3);
-        result.addImgUrl("https://s3.us-east-2.amazonaws.com/jms-s3-cx-rel-p-pmc4/assets/jif/images/products/main-images/product_pb_natural_creamy.png");
-        return result;
     }
 
     public ArrayList<String> getImageURLs() {
