@@ -12,11 +12,11 @@ public class Cart implements Parcelable
     //checkout total
     private double total = 0.00;
 
-    public Cart() {
+    Cart() {
 
     }
 
-    public Cart(Parcel in) {
+    private Cart(Parcel in) {
         int size = in.readInt();
         for (int i = 0; i < size; ++i) {
             Product newProduct = in.readParcelable(Product.class.getClassLoader());

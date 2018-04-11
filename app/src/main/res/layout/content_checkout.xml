@@ -30,13 +30,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Item Name"
+                android:text="@string/item_name"
                 android:textColor="@color/black" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Qty"
+                android:text="@string/quantity_short"
                 android:textColor="@color/black"
                 android:paddingLeft="12dp"
                 android:paddingStart="12dp"
@@ -46,7 +46,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Subtotal"
+                android:text="@string/subtotal"
                 android:textColor="@color/black"
                 android:paddingLeft="8dp"
                 android:paddingStart="8dp"
@@ -79,7 +79,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Subtotal"
+                android:text="@string/subtotal"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:layout_gravity="start" />

@@ -1,10 +1,7 @@
 package com.synchrony.uconn.design.synchronyar;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.annotation.NonNull;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -15,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -28,7 +24,7 @@ public class CartListItemAdapter extends ArrayAdapter {
     private final Activity activity;
     private final Cart cart;
 
-    public CartListItemAdapter(Activity activity, Cart cart) {
+    CartListItemAdapter(Activity activity, Cart cart) {
         super(activity, R.layout.cart_item, cart.getItemQuantitySet().toArray());
 
         this.activity = activity;

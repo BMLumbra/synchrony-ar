@@ -2,16 +2,8 @@ package com.synchrony.uconn.design.synchronyar;
 
 import java.util.*;
 
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.widget.ImageView;
-import android.content.Context;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
-
 
 public class Product implements Parcelable
 {
@@ -28,8 +20,6 @@ public class Product implements Parcelable
     private int stock;
 
     private int colorIDCounter = 0;
-
-    private ArrayList<ArrayList<ImageView>> images = new ArrayList<>();
 
     private ArrayList<String> imageURLs = new ArrayList<>();
 
@@ -75,7 +65,6 @@ public class Product implements Parcelable
         price = in.readDouble();
         stock = in.readInt();
         colorIDCounter = in.readInt();
-        //in.readList(images, ArrayList.class.getClassLoader());
         in.readList(imageURLs, ArrayList.class.getClassLoader());
         in.readList(tags, ArrayList.class.getClassLoader());
     }
@@ -91,13 +80,6 @@ public class Product implements Parcelable
             return new Product[size];
         }
     };
-
-    //Deletes images saved on cloud
-    public void imageSweeper()
-    {
-        images = new ArrayList<>();
-        colorIDCounter = 0;
-    }
 
     public int getID()
     {
@@ -145,27 +127,16 @@ public class Product implements Parcelable
             return false;
     }
 
-/*
-    public void addImg(int ColorID, ImageView img)
-    {
-        while (images.size() <= ColorID) {
-            images.add(new ArrayList<ImageView>());
-        }
-        images.get(ColorID).add(img);
-    }*/
-
-    public void addImgUrl(String url) {
+    private void addImgUrl(String url) {
         imageURLs.add(url);
     }
-
-
 
     public boolean searchTag(String s)
     {
         return tags.contains(s);
     }
 
-    public static Product getProductById(int id, Context context) {
+    public static Product getProductById(int id) {
         Product result = new Product(0, "Peanut Butter", "Jif", "", 3, 3);
         result.addImgUrl("https://s3.us-east-2.amazonaws.com/jms-s3-cx-rel-p-pmc4/assets/jif/images/products/main-images/product_pb_natural_creamy.png");
         return result;
@@ -174,44 +145,7 @@ public class Product implements Parcelable
     public ArrayList<String> getImageURLs() {
         return imageURLs;
     }
-/*
-    private void loadImage(String url, Context c)
-    {
-        ImageView temp = null;
-        Glide
-                .with(c)
-                .load(url)
-                .into(temp);
-        addImg(colorIDCounter, temp);
-    }
 
-    private void loadAllImages(Context c)
-    {
-        int i = 0;
-        for(ArrayList<String> color: imageURLs)
-        {
-            for(String url: imageURLs.get(i))
-            {
-                loadImage(url, c);
-            }
-            i++;
-        }
-    }
-
-    private ArrayList<ArrayList<ImageView>> getImages()
-    {
-        return images;
-    }
-
-    private ArrayList<ImageView> getImages(int ColorID)
-    {
-        return images.get(ColorID);
-    }
-
-    public ImageView getPreviewImageView() {
-        return images.get(0).get(0);
-    }
-*/
     @Override
     public int describeContents() {
         return 0;
@@ -226,7 +160,6 @@ public class Product implements Parcelable
         dest.writeDouble(price);
         dest.writeInt(stock);
         dest.writeInt(colorIDCounter);
-        //dest.writeList(images);
         dest.writeList(imageURLs);
         dest.writeList(tags);
     }

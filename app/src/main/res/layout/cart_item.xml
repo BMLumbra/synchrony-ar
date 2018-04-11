@@ -10,7 +10,8 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:paddingTop="8dp"
-        android:paddingBottom="8dp" />
+        android:paddingBottom="8dp"
+        android:contentDescription="@string/item_image" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -45,7 +46,8 @@
         android:textSize="18sp"
         android:background="@drawable/quantity_edit_box"
         android:layout_gravity="center_vertical|start"
-        android:imeOptions="actionDone" />
+        android:imeOptions="actionDone"
+        android:hint="@string/quantity" />
 
     <TextView
         android:id="@+id/cart_item_total_price"
@@ -68,6 +70,7 @@
         android:src="@drawable/ic_close_black_24dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:background="@null" />
+        android:background="@null"
+        android:contentDescription="@string/remove" />
 
 </LinearLayout>
