@@ -426,16 +426,28 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
 
 
             int colorID;
-
+            String next;
             while(!sc.hasNext("\\s*;\\s*"))
             {
-                sc.next(); //Color ID label
-                colorID = sc.nextInt(); //Color ID value
-
-                //Adds url to product
-                while((!sc.hasNext("\\s*ColorID\\s*"))&&(!sc.hasNext("\\s*;\\s*")))
+                next = sc.next();
+                if(next.equals("ColorID"))
                 {
-                    p.addImgURL(colorID, sc.next());
+                    //Adds url to product
+                    colorID = sc.nextInt(); //Color ID value
+                    p.addColor(colorID, sc.next());
+                    while((!sc.hasNext("\\s*ColorID\\s*"))&&(!sc.hasNext("\\s*;\\s*")))
+                    {
+                        p.addImgURL(colorID, sc.next());
+                    }
+                }
+
+                if(next.equals("Sizes"))
+                {
+                    while(!sc.hasNext("\\s*;\\s*"))
+                    {
+                        sc.next();
+                        //p.addSize(sc.next());
+                    }
                 }
             }
 

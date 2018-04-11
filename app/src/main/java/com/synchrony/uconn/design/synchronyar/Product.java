@@ -33,6 +33,11 @@ public class Product implements Parcelable
 
     private ArrayList<String> tags = new ArrayList<>();
 
+    private ArrayList<String> colors = new ArrayList<>();
+
+    private ArrayList<String> sizes = new ArrayList<>();
+
+
 
     public Product(int _id, String _name, String _brand, String _miscInfo, double _price, int _stock, ArrayList<ArrayList<String>> _imageURLs, ArrayList<String> _tags)
     {
@@ -97,6 +102,28 @@ public class Product implements Parcelable
         colorIDCounter = 0;
     }
 
+    public ArrayList<String> getColors()
+    {
+        return colors;
+    }
+
+    public ArrayList<String> getSizes()
+    {
+        return sizes;
+    }
+
+    public void addColor(int colorID, String color)
+    {
+        if(colors.size() <= colorID)
+            increaseColorsCapacity(colorID + 1);
+        colors.add(colorID, color);
+    }
+
+    public void addSize(String size)
+    {
+        colors.add(size);
+    }
+
     public int getID()
     {
         return id;
@@ -144,9 +171,26 @@ public class Product implements Parcelable
     }
 
 
+    public void increaseImageURLCapacity(int newSize)
+    {
+        for(int i = imageURLs.size(); i <= newSize; i++)
+        {
+            imageURLs.add(new ArrayList<String>());
+        }
+    }
+
+    public void increaseColorsCapacity(int newSize)
+    {
+        for(int i = colors.size(); i <= newSize; i++)
+        {
+            colors.add("");
+        }
+    }
+
     public void addImgURL(int ColorID, String url)
     {
-        imageURLs.ensureCapacity(ColorID + 1);
+        if(imageURLs.size() <= ColorID)
+            increaseImageURLCapacity(ColorID + 1);
         imageURLs.get(ColorID).add((url));
     }
 
