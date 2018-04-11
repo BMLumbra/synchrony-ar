@@ -58,7 +58,9 @@ public class Cart implements Parcelable
     }
 
     public void setQuantity(Product item, Integer quantity) {
+        total -= item.getPrice() * contentQuantities.get(item);
         contentQuantities.put(item, quantity);
+        total += item.getPrice() * contentQuantities.get(item);
     }
 
     public void clear() {

@@ -77,6 +77,7 @@ public class CartListItemAdapter extends ArrayAdapter {
                         float newTextSize = ((float)originalLength / newLength) * originalTextSize;
                         productTotalPriceView.setTextSize(TypedValue.COMPLEX_UNIT_PX, newTextSize);
                         cart.setQuantity(product, newQuantity);
+                        notifyDataSetChanged();
                     }
                     handled = true;
                 }
@@ -95,6 +96,14 @@ public class CartListItemAdapter extends ArrayAdapter {
         });
 
         return view;
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        TextView subtotal = activity.findViewById(R.id.checkout_subtotal);
+        subtotal.setText(String.format(Locale.US, "$%.2f", cart.getTotal()));
+
+        super.notifyDataSetChanged();
     }
 
     @Override

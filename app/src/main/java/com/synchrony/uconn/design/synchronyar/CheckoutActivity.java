@@ -13,8 +13,10 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -31,6 +33,9 @@ public class CheckoutActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         cart = getIntent().getExtras().getParcelable("cart");
+
+        TextView subtotal = findViewById(R.id.checkout_subtotal);
+        subtotal.setText(String.format(Locale.US, "$%.2f", cart.getTotal()));
 
         final ListView cartListView = findViewById(R.id.cart_list_view);
         final CartListItemAdapter cartListAdapter = new CartListItemAdapter(this, cart);
