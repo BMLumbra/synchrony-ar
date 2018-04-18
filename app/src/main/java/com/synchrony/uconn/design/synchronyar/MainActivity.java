@@ -22,8 +22,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -33,12 +31,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.vuforia.CameraDevice;
 import com.vuforia.DataSet;
 import com.vuforia.ObjectTracker;
@@ -55,7 +49,6 @@ import com.vuforia.samples.SampleApplication.utils.LoadingDialogHandler;
 import com.vuforia.samples.SampleApplication.utils.SampleApplicationGLView;
 import com.vuforia.samples.SampleApplication.utils.Texture;
 
-import java.util.Locale;
 import java.util.Vector;
 import java.util.Scanner;
 import java.io.*;
@@ -91,13 +84,14 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
     //Scanner for creating products
     private Scanner sc;
 
-    private CoordinatorLayout infoOverlay = null;
+    //private CoordinatorLayout infoOverlay = null;
 
     private Product currentProduct = null;
 
     private Cart cart = new Cart();
 
-    private boolean overlayStale = true;
+    //private boolean overlayStale = true;
+    InfoOverlay infoOverlay = null;
 
     public static final int RESULT_CART_INFO = 0;
     private static final int PERMISSION_REQUEST_START_VUFORIA = 0;
@@ -138,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
 
             if (allGranted) {
                 initializeVuforia();
+                infoOverlay = new InfoOverlay(this, mUILayout, cart, currentProduct);
             } else {
                 showPermissionsDeniedDialog();
             }
@@ -574,93 +569,16 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
     }
 
     public void setCurrentProduct(Product currentProduct) {
-        if (this.currentProduct != currentProduct) {
-            overlayStale = true;
-        }
         this.currentProduct = currentProduct;
+        infoOverlay.setProduct(currentProduct);
     }
 
     public void displayInfoOverlay() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (infoOverlay == null) {
-                    LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
-                    infoOverlay = (CoordinatorLayout) inflater.inflate(R.layout.info_overlay, mUILayout, false);
-                }
-
-                if (overlayStale) {
-                    updateInfoOverlay();
-                    overlayStale = false;
-                }
-
-                if (mUILayout.findViewById(R.id.info_overlay_coordinator) == null) {
-                    mUILayout.addView(infoOverlay, new LayoutParams(LayoutParams.MATCH_PARENT,
-                            LayoutParams.MATCH_PARENT));
-                }
-            }
-        });
-    }
-
-    private void updateInfoOverlay() {
-        setInfoOverlayPrice();
-        setInfoOverlayAvailability();
-        setInfoOverlayImage();
-        initAddToCartButton();
-    }
-
-    private void setInfoOverlayPrice() {
-        TextView infoOverlayPrice = infoOverlay.findViewById(R.id.info_overlay_price);
-        infoOverlayPrice.setText(String.format(Locale.US, "$%.2f", currentProduct.getPrice()));
-    }
-
-    private void setInfoOverlayAvailability() {
-        TextView infoOverlayAvailability = infoOverlay.findViewById(R.id.info_overlay_availability);
-        if (currentProduct.inStock()) {
-            infoOverlayAvailability.setText(getResources().getText(R.string.info_overlay_availability_yes));
-            infoOverlayAvailability.setTextColor(getResources().getColor(R.color.overlay_text_available));
-        } else {
-            infoOverlayAvailability.setText(getResources().getText(R.string.info_overlay_availability_no));
-            infoOverlayAvailability.setTextColor(getResources().getColor(R.color.overlay_text_unavailable));
-        }
-    }
-
-    private void setInfoOverlayImage() {
-        ImageView infoOverlayImage = infoOverlay.findViewById(R.id.info_overlay_picture);
-        Glide.with(MainActivity.this).load(currentProduct.getImageURLs().get(0)).into(infoOverlayImage);
-    }
-
-    private void initAddToCartButton() {
-        ImageButton addToCartButton = infoOverlay.findViewById(R.id.info_overlay_cart_button);
-        addToCartButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar addedToCartMessage;
-                if (cart.addToCart(currentProduct)) {
-                    addedToCartMessage = Snackbar.make(infoOverlay, R.string.added_to_cart, Snackbar.LENGTH_LONG);
-                } else {
-                    addedToCartMessage = Snackbar.make(infoOverlay, R.string.not_added_to_cart, Snackbar.LENGTH_LONG);
-                }
-                addedToCartMessage.setAction(R.string.checkout, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showCheckoutActivity();
-                    }
-                });
-                addedToCartMessage.show();
-            }
-        });
+        infoOverlay.display();
     }
 
     public void removeInfoOverlay() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (mUILayout.findViewById(R.id.info_overlay_coordinator) != null) {
-                    mUILayout.removeView(infoOverlay);
-                }
-            }
-        });
+        infoOverlay.remove();
     }
 
     public void showInfoActivity(View v) {
