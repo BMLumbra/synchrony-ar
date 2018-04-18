@@ -47,7 +47,7 @@
         android:background="@drawable/quantity_edit_box"
         android:layout_gravity="center_vertical|start"
         android:imeOptions="actionDone"
-        android:hint="@string/quantity" />
+        android:hint="@string/quantity_short" />
 
     <TextView
         android:id="@+id/cart_item_total_price"

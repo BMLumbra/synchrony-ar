@@ -112,6 +112,8 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
 
     Cart cart = new Cart();
 
+    boolean overlayStale = true;
+
     public static int RESULT_CART_INFO = 0;
 
     int PERMISSION_REQUEST_START_VUFORIA = 0;
@@ -434,8 +436,9 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
 
             int colorID;
 
-            while(!sc.hasNext("\\s*;\\s*"))
+            while(sc.hasNext("\\s*;\\s*"))
             {
+                sc.next(); // Semicolon
                 sc.next(); //Color ID label
                 colorID = sc.nextInt(); //Color ID value
 
@@ -444,6 +447,7 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
                 {
                     p.addImgURL(colorID, sc.next());
                 }
+                sc.next(); // Semicolon
             }
 
             catalogue.addProduct(p);
@@ -691,6 +695,9 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
     }
 
     public void setCurrentProduct(Product currentProduct) {
+        if (this.currentProduct != currentProduct) {
+            overlayStale = true;
+        }
         this.currentProduct = currentProduct;
     }
 
@@ -703,37 +710,43 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
                     LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
                     infoOverlay = (CoordinatorLayout) inflater.inflate(R.layout.info_overlay, mUILayout, false);
                 }
-                TextView infoOverlayPrice = (TextView) infoOverlay.findViewById(R.id.info_overlay_price);
-                infoOverlayPrice.setText(String.format(Locale.US, "$%.2f", currentProduct.getPrice()));
-                TextView infoOverlayAvailability = (TextView) infoOverlay.findViewById(R.id.info_overlay_availability);
-                if (currentProduct.inStock()) {
-                    infoOverlayAvailability.setText(getResources().getText(R.string.info_overlay_availability_yes));
-                    infoOverlayAvailability.setTextColor(getResources().getColor(R.color.overlay_text_available));
-                } else {
-                    infoOverlayAvailability.setText(getResources().getText(R.string.info_overlay_availability_no));
-                    infoOverlayAvailability.setTextColor(getResources().getColor(R.color.overlay_text_unavailable));
-                }
 
-                ImageButton addToCartButton = infoOverlay.findViewById(R.id.info_overlay_cart_button);
-                addToCartButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Snackbar addedToCartMessage;
-                        if (cart.addToCart(currentProduct)) {
-                            addedToCartMessage = Snackbar.make(infoOverlay, R.string.added_to_cart, Snackbar.LENGTH_LONG);
-                        } else {
-                            addedToCartMessage = Snackbar.make(infoOverlay, R.string.not_added_to_cart, Snackbar.LENGTH_LONG);
-                        }
-                        addedToCartMessage.setAction(R.string.checkout, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                showCheckoutActivity();
-                            }
-                        });
-                        addedToCartMessage.show();
+                if (overlayStale) {
+                    TextView infoOverlayPrice = (TextView) infoOverlay.findViewById(R.id.info_overlay_price);
+                    infoOverlayPrice.setText(String.format(Locale.US, "$%.2f", currentProduct.getPrice()));
+                    TextView infoOverlayAvailability = (TextView) infoOverlay.findViewById(R.id.info_overlay_availability);
+                    if (currentProduct.inStock()) {
+                        infoOverlayAvailability.setText(getResources().getText(R.string.info_overlay_availability_yes));
+                        infoOverlayAvailability.setTextColor(getResources().getColor(R.color.overlay_text_available));
+                    } else {
+                        infoOverlayAvailability.setText(getResources().getText(R.string.info_overlay_availability_no));
+                        infoOverlayAvailability.setTextColor(getResources().getColor(R.color.overlay_text_unavailable));
                     }
-                });
 
+                    ImageView infoOverlayImage = infoOverlay.findViewById(R.id.info_overlay_picture);
+                    Glide.with(MainActivity.this).load(currentProduct.getImageURLs().get(0)).into(infoOverlayImage);
+
+                    ImageButton addToCartButton = infoOverlay.findViewById(R.id.info_overlay_cart_button);
+                    addToCartButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Snackbar addedToCartMessage;
+                            if (cart.addToCart(currentProduct)) {
+                                addedToCartMessage = Snackbar.make(infoOverlay, R.string.added_to_cart, Snackbar.LENGTH_LONG);
+                            } else {
+                                addedToCartMessage = Snackbar.make(infoOverlay, R.string.not_added_to_cart, Snackbar.LENGTH_LONG);
+                            }
+                            addedToCartMessage.setAction(R.string.checkout, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    showCheckoutActivity();
+                                }
+                            });
+                            addedToCartMessage.show();
+                        }
+                    });
+                    overlayStale = false;
+                }
                 if (mUILayout.findViewById(R.id.info_overlay_coordinator) == null) {
                     mUILayout.addView(infoOverlay, new LayoutParams(LayoutParams.MATCH_PARENT,
                             LayoutParams.MATCH_PARENT));
