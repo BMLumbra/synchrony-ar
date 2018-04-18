@@ -300,7 +300,6 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
         mRenderer = new SynchronyRenderer(this, vuforiaAppSession, catalogue);
         mRenderer.setTextures(mTextures);
         mGlView.setRenderer(mRenderer);
-
     }
 
     private void startLoadingAnimation() {
@@ -320,11 +319,9 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
         loadingDialogHandler
                 .sendEmptyMessage(LoadingDialogHandler.SHOW_LOADING_DIALOG);
 
-
         // Adds the inflated layout to the view
         addContentView(mUILayout, new LayoutParams(LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT));
-
     }
 
     // Methods to load and destroy tracking data.
@@ -420,7 +417,6 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
 
     @Override
     public void onInitARDone(SampleApplicationException exception) {
-
         if (exception == null) {
             initApplicationAR();
 
