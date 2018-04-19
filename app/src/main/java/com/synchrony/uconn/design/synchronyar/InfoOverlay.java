@@ -1,6 +1,6 @@
 package com.synchrony.uconn.design.synchronyar;
 
-import android.support.design.widget.CoordinatorLayout;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +16,7 @@ import java.util.Locale;
 public class InfoOverlay {
     private MainActivity activity;
     private ViewGroup parent;
-    private CoordinatorLayout overlayLayout;
+    private ConstraintLayout overlayLayout;
     private Cart cart;
     private Product product;
 
@@ -27,14 +27,14 @@ public class InfoOverlay {
         this.product = product;
 
         LayoutInflater inflater = LayoutInflater.from(activity);
-        overlayLayout = (CoordinatorLayout) inflater.inflate(R.layout.info_overlay, parent, false);
+        overlayLayout = (ConstraintLayout) inflater.inflate(R.layout.info_overlay, parent, false);
     }
 
     public void display() {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (parent.findViewById(R.id.info_overlay_coordinator) == null) {
+                if (parent.findViewById(R.id.info_overlay_constraint) == null) {
                     parent.addView(overlayLayout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                             ViewGroup.LayoutParams.MATCH_PARENT));
                 }
@@ -116,7 +116,7 @@ public class InfoOverlay {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (parent.findViewById(R.id.info_overlay_coordinator) != null) {
+                if (parent.findViewById(R.id.info_overlay_constraint) != null) {
                     parent.removeView(overlayLayout);
                 }
             }

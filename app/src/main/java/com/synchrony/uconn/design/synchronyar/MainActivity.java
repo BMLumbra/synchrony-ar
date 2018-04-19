@@ -84,13 +84,10 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
     //Scanner for creating products
     private Scanner sc;
 
-    //private CoordinatorLayout infoOverlay = null;
-
     private Product currentProduct = null;
 
     private Cart cart = new Cart();
 
-    //private boolean overlayStale = true;
     InfoOverlay infoOverlay = null;
 
     public static final int RESULT_CART_INFO = 0;
