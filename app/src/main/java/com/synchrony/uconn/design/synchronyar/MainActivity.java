@@ -290,7 +290,6 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
         mGlView.init(translucent, depthSize, stencilSize);
 
         mRenderer = new SynchronyRenderer(this, vuforiaAppSession, catalogue);
-        mRenderer.setTextures(mTextures);
         mGlView.setRenderer(mRenderer);
     }
 
