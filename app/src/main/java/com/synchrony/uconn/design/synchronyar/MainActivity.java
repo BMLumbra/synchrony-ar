@@ -333,7 +333,7 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
             return false;
         }
 
-        if (!mCurrentDataSet.load("synchrony_test_OT.xml",
+        if (!mCurrentDataSet.load("Synchrony_DB_OT.xml",
                 STORAGE_TYPE.STORAGE_APPRESOURCE)) {
             return false;
         }
@@ -351,7 +351,7 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
                 trackable.startExtendedTracking();
             }
 
-            Product p = new Product(trackable.getId(), sc.next(), sc.next(), "", sc.nextInt(), sc.nextInt());
+            Product p = new Product(trackable.getId(), sc.next(), sc.next(), "", sc.nextDouble(), sc.nextInt());
             int colorID;
 
             while (sc.hasNext("\\s*;\\s*")) {
