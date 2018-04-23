@@ -2,14 +2,9 @@ package com.synchrony.uconn.design.synchronyar;
 
 import java.util.*;
 
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.widget.ImageView;
-import android.content.Context;
-import com.bumptech.glide.Glide;
-
 
 public class Product implements Parcelable
 {
@@ -27,19 +22,14 @@ public class Product implements Parcelable
 
     private int colorIDCounter = 0;
 
-    private ArrayList<ArrayList<ImageView>> images = new ArrayList();
-
-    private ArrayList<ArrayList<String>> imageURLs = new ArrayList<>();
+    private ArrayList<String> imageURLs = new ArrayList<>();
 
     private ArrayList<String> tags = new ArrayList<>();
 
-    private ArrayList<String> colors = new ArrayList<>();
-
-    private ArrayList<String> sizes = new ArrayList<>();
+    private HashMap<Integer, ArrayList<String>> imageURLsByColor = new HashMap<>();
 
 
-
-    public Product(int _id, String _name, String _brand, String _miscInfo, double _price, int _stock, ArrayList<ArrayList<String>> _imageURLs, ArrayList<String> _tags)
+    public Product(int _id, String _name, String _brand, String _miscInfo, double _price, int _stock, ArrayList<String> _imageURLs, ArrayList<String> _tags)
     {
         id = _id;
         name = _name;
@@ -78,7 +68,6 @@ public class Product implements Parcelable
         price = in.readDouble();
         stock = in.readInt();
         colorIDCounter = in.readInt();
-        in.readList(images, ArrayList.class.getClassLoader());
         in.readList(imageURLs, ArrayList.class.getClassLoader());
         in.readList(tags, ArrayList.class.getClassLoader());
     }
@@ -94,35 +83,6 @@ public class Product implements Parcelable
             return new Product[size];
         }
     };
-
-    //Deletes images saved on cloud
-    public void imageSweeper()
-    {
-        images = new ArrayList<>();
-        colorIDCounter = 0;
-    }
-
-    public ArrayList<String> getColors()
-    {
-        return colors;
-    }
-
-    public ArrayList<String> getSizes()
-    {
-        return sizes;
-    }
-
-    public void addColor(int colorID, String color)
-    {
-        if(colors.size() <= colorID)
-            increaseColorsCapacity(colorID + 1);
-        colors.add(colorID, color);
-    }
-
-    public void addSize(String size)
-    {
-        colors.add(size);
-    }
 
     public int getID()
     {
@@ -164,83 +124,38 @@ public class Product implements Parcelable
 
     public boolean inStock()
     {
-        if(stock > 0)
+        if (stock > 0)
             return true;
         else
             return false;
     }
 
-
-    public void increaseImageURLCapacity(int newSize)
-    {
-        for(int i = imageURLs.size(); i <= newSize; i++)
-        {
-            imageURLs.add(new ArrayList<String>());
-        }
-    }
-
-    public void increaseColorsCapacity(int newSize)
-    {
-        for(int i = colors.size(); i <= newSize; i++)
-        {
-            colors.add("");
-        }
+    private void addImgUrl(String url) {
+        imageURLs.add(url);
     }
 
     public void addImgURL(int ColorID, String url)
     {
-        if(imageURLs.size() <= ColorID)
-            increaseImageURLCapacity(ColorID + 1);
-        imageURLs.get(ColorID).add((url));
+        imageURLs.add(url);
+        if (!imageURLsByColor.containsKey(ColorID)) {
+            imageURLsByColor.put(ColorID, new ArrayList<String>());
+        }
+        imageURLsByColor.get(ColorID).add(url);
     }
 
-    public void addImg(int ColorID, ImageView img)
+    /*public void addImg(int ColorID, ImageView img)
     {
         images.get(ColorID).add(img);
-    }
 
-
+    }*/
 
     public boolean searchTag(String s)
     {
         return tags.contains(s);
     }
 
-    public static Product getProductById(int id) {
-        return new Product(0, "Peanut Butter", "Jif", "", 3, 0);
-    }
-
-    private void loadImage(String url, Context c)
-    {
-        ImageView temp = null;
-        Glide
-                .with(c)
-                .load(url)
-                .into(temp);
-        addImg(colorIDCounter, temp);
-    }
-
-    private void loadAllImages(Context c)
-    {
-        int i = 0;
-        for(ArrayList<String> color: imageURLs)
-        {
-            for(String url: imageURLs.get(i))
-            {
-                loadImage(url, c);
-            }
-            i++;
-        }
-    }
-
-    private ArrayList<ArrayList<ImageView>> getImages()
-    {
-        return images;
-    }
-
-    private ArrayList<ImageView> getImages(int ColorID)
-    {
-        return images.get(ColorID);
+    public ArrayList<String> getImageURLs() {
+        return imageURLs;
     }
 
     @Override
@@ -257,8 +172,17 @@ public class Product implements Parcelable
         dest.writeDouble(price);
         dest.writeInt(stock);
         dest.writeInt(colorIDCounter);
-        dest.writeList(images);
         dest.writeList(imageURLs);
         dest.writeList(tags);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof Product && (((Product) other).getID() == this.getID());
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 }

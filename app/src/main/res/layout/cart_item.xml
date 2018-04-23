@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/cart_item_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:contentDescription="@string/item_image" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center_vertical|start" >
+
+        <TextView
+            android:id="@+id/cart_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/cart_item_unit_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/green"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/cart_item_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:textSize="18sp"
+        android:background="@drawable/quantity_edit_box"
+        android:layout_gravity="center_vertical|start"
+        android:imeOptions="actionDone"
+        android:hint="@string/quantity_short" />
+
+    <TextView
+        android:id="@+id/cart_item_total_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_gravity="center_vertical|start"
+        android:paddingLeft="8dp"
+        android:paddingStart="8dp"
+        android:paddingRight="8dp"
+        android:paddingEnd="8dp"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/cart_item_remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|start"
+        android:src="@drawable/ic_close_black_24dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:background="@null"
+        android:contentDescription="@string/remove" />
+
+</LinearLayout>

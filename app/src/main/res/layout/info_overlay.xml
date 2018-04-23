@@ -1,100 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/info_overlay_constraint"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:baselineAligned="false"
-    android:id="@+id/info_overlay"
-    android:orientation="vertical" >
+    tools:context=".MainActivity">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/transparent" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray" />
-
-        <LinearLayout
+        <!--<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/overlay_background" >
+            android:baselineAligned="false"
+            android:id="@+id/info_overlay_content"
+            android:orientation="vertical" >
 
-                <ImageView
-                    android:id="@+id/info_overlay_picture"
-                    android:layout_width="wrap_content"
-                    android:layout_height="128dp"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="16dp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/product_pb_natural_creamy" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:orientation="vertical" >
+                    android:background="@color/transparent" />
 
-                        <TextView
-                            android:id="@+id/info_overlay_availability"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:textSize="22sp"
-                            android:fontFamily="@font/montserrat"
-                            android:text="@string/info_overlay_availability_loading" />
-
-                        <TextView
-                            android:id="@+id/info_overlay_price"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:textColor="@color/overlay_text_default"
-                            android:textSize="22sp"
-                            android:gravity="center"
-                            android:fontFamily="@font/montserrat"
-                            android:text="@string/info_overlay_price_loading" />
-
-                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" >
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/overlay_background" >
 
-                    <ImageButton
-                        android:id="@+id/info_overlay_info_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="8dp"
-                        android:src="@drawable/ic_info_outline_black_24dp"
-                        android:contentDescription="@string/more_info"
-                        android:background="@color/overlay_background"
-                        android:onClick="showInfoActivity" />
+                        <ImageView
+                            android:id="@+id/info_overlay_picture"
+                            android:layout_width="wrap_content"
+                            android:layout_height="128dp"
+                            android:paddingTop="16dp"
+                            android:paddingBottom="16dp"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:adjustViewBounds="true"
+                            android:contentDescription="@string/item_image"/>
 
-                    <ImageButton
-                        android:id="@+id/info_overlay_cart_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="8dp"
-                        android:src="@drawable/ic_add_shopping_cart_black_24dp"
-                        android:contentDescription="@string/add_to_cart"
-                        android:background="@color/overlay_background" />
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical" >
 
+                                <TextView
+                                    android:id="@+id/info_overlay_availability"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:textSize="22sp"
+                                    android:fontFamily="@font/montserrat"
+                                    android:text="@string/info_overlay_availability_loading" />
+
+                                <TextView
+                                    android:id="@+id/info_overlay_price"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:textColor="@color/overlay_text_default"
+                                    android:textSize="22sp"
+                                    android:gravity="center"
+                                    android:fontFamily="@font/montserrat"
+                                    android:text="@string/info_overlay_price_loading" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical" >
+
+                            <ImageButton
+                                android:id="@+id/info_overlay_info_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:paddingStart="8dp"
+                                android:paddingEnd="8dp"
+                                android:paddingTop="8dp"
+                                android:paddingBottom="8dp"
+                                android:src="@drawable/ic_info_outline_black_24dp"
+                                android:contentDescription="@string/more_info"
+                                android:background="@color/overlay_background"
+                                android:onClick="showInfoActivity" />
+
+                            <ImageButton
+                                android:id="@+id/info_overlay_cart_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:paddingStart="8dp"
+                                android:paddingEnd="8dp"
+                                android:paddingTop="8dp"
+                                android:paddingBottom="8dp"
+                                android:src="@drawable/ic_add_shopping_cart_black_24dp"
+                                android:contentDescription="@string/add_to_cart"
+                                android:background="@color/overlay_background" />
+
+                        </LinearLayout>
                 </LinearLayout>
-        </LinearLayout>
-</LinearLayout>
+        </LinearLayout>-->
+
+    <!--<View
+        android:id="@+id/info_overlay_transparent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/transparent" />-->
+
+    <ImageView
+        android:id="@+id/info_overlay_picture"
+        android:layout_width="wrap_content"
+        android:layout_height="128dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/item_image"
+        android:background="@color/overlay_background" />
+
+    <TextView
+        android:id="@+id/info_overlay_availability"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toRightOf="@+id/info_overlay_picture"
+        app:layout_constraintRight_toLeftOf="@+id/info_overlay_info_button"
+        app:layout_constraintTop_toTopOf="@+id/info_overlay_picture"
+        app:layout_constraintBottom_toTopOf="@+id/info_overlay_price"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/info_overlay_availability_loading"
+        android:background="@color/overlay_background" />
+
+    <TextView
+        android:id="@+id/info_overlay_price"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toRightOf="@+id/info_overlay_picture"
+        app:layout_constraintRight_toLeftOf="@+id/info_overlay_cart_button"
+        app:layout_constraintTop_toBottomOf="@+id/info_overlay_availability"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/overlay_text_default"
+        android:textSize="22sp"
+        android:gravity="center"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/info_overlay_price_loading"
+        android:background="@color/overlay_background" />
+
+    <ImageButton
+        android:id="@+id/info_overlay_info_button"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/info_overlay_availability"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/info_overlay_picture"
+        app:layout_constraintBottom_toTopOf="@+id/info_overlay_cart_button"
+        android:src="@drawable/ic_info_outline_black_24dp"
+        android:contentDescription="@string/more_info"
+        android:onClick="showInfoActivity"
+        android:background="@color/overlay_background" />
+
+    <ImageButton
+        android:id="@+id/info_overlay_cart_button"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/info_overlay_price"
+        app:layout_constraintTop_toBottomOf="@+id/info_overlay_info_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/ic_add_shopping_cart_black_24dp"
+        android:contentDescription="@string/add_to_cart"
+        android:background="@color/overlay_background" />
+
+</android.support.constraint.ConstraintLayout>

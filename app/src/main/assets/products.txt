@@ -1,2 +1,2 @@
-Peanut_Butter Jif 12 0
-ColorID 1 Creamy https://firebasestorage.googleapis.com/v0/b/synchrony-ar.appspot.com/o/Jif%20Peanut%20Butter%2FCreamy.jpeg?alt=media&token=8a13b82a-65d8-48af-abad-fa620f9e23a8 ;
+Peanut_Butter  Jif 3 1 ;
+ColorID 1 https://s3.us-east-2.amazonaws.com/jms-s3-cx-rel-p-pmc4/assets/jif/images/products/main-images/product_pb_natural_creamy.png ;
