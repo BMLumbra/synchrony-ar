@@ -129,4 +129,8 @@ public class InfoOverlay {
             update();
         }
     }
+
+    public void updateCart(Cart newCart) {
+        cart = newCart;
+    }
 }

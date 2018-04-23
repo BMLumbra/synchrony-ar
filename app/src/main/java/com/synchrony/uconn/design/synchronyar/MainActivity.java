@@ -594,6 +594,7 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
         if (requestCode == RESULT_CART_INFO && resultCode == RESULT_OK) {
             if (data.getExtras() != null) {
                 cart = data.getExtras().getParcelable("cart");
+                infoOverlay.updateCart(cart);
             } else {
                 cart = null;
             }
