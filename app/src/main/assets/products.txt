@@ -1,2 +1,6 @@
+Tissue  Scotties 2.95 1 ;
+ColorID 1 https://www.dollartree.com/assets/product_images_2016/styles/xlarge/240896_v2.jpg ;
 Peanut_Butter  Jif 3 1 ;
 ColorID 1 https://s3.us-east-2.amazonaws.com/jms-s3-cx-rel-p-pmc4/assets/jif/images/products/main-images/product_pb_natural_creamy.png ;
+Hydrogen_Peroxide  Assured 1 1 ;
+ColorID 1 https://www.dollartree.com/assets/product_images_2016/styles/xlarge/104297.jpg ;
