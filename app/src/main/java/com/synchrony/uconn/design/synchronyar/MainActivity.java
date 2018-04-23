@@ -318,6 +318,10 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
     // Methods to load and destroy tracking data.
     @Override
     public boolean doLoadTrackersData() {
+
+        String pName;
+        String pBrand;
+
         TrackerManager tManager = TrackerManager.getInstance();
         ObjectTracker objectTracker = (ObjectTracker) tManager
                 .getTracker(ObjectTracker.getClassType());
@@ -351,7 +355,14 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
                 trackable.startExtendedTracking();
             }
 
-            Product p = new Product(trackable.getId(), sc.next(), sc.next(), "", sc.nextDouble(), sc.nextInt());
+
+            //removes underscore
+            pName = sc.next();
+            pName = pName.replace('_', ' ');
+            pBrand = sc.next();
+            pBrand = pBrand.replace('_', ' ');
+
+            Product p = new Product(trackable.getId(), pName, pBrand, "", sc.nextDouble(), sc.nextInt());
             int colorID;
 
             while (sc.hasNext("\\s*;\\s*")) {
