@@ -45,6 +45,7 @@ public class CartListItemAdapter extends ArrayAdapter {
         TextView productNameView = view.findViewById(R.id.cart_item_name);
         String productNameText = product.getBrand() + " " + product.getName();
         productNameView.setText(productNameText);
+        productNameView.setSelected(true);
 
         final EditText quantityEditTextView = view.findViewById(R.id.cart_item_quantity);
         quantityEditTextView.setText(String.format(Locale.US, "%d", quantity));
