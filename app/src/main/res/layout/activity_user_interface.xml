@@ -55,32 +55,7 @@
             android:fontFamily="@font/montserrat"
             android:gravity="center"
             android:textSize="22sp"/>
-        <Spinner
-            android:id="@+id/spinner_colors"
-            android:layout_width="150dp"
-            android:layout_height="10dp"
-            android:layout_gravity="center"
-            android:layout_weight=".25"
-            android:spinnerMode="dropdown">
-        </Spinner>
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:gravity="center"
-            android:fontFamily="@font/montserrat"
-            android:text="@string/sizes_available"
-            android:textSize="22sp" />
-        <Spinner
-            android:id="@+id/spinner_size"
-            android:layout_width="150dp"
-            android:layout_height="10dp"
-            android:layout_gravity="center"
-            android:layout_weight=".25"
-            android:spinnerMode="dropdown">
-        </Spinner>
 
         <Button
             android:id="@+id/button"

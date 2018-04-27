@@ -26,22 +26,6 @@ public class UserInterface extends Activity {
         nameText.setText(currentProduct.getName());
         TextView brandText = (TextView) findViewById(R.id.textView2);
         brandText.setText(currentProduct.getBrand());
-        TextView infoText = (TextView) findViewById(R.id.textView3);
-        infoText.setText(currentProduct.getInfo());
-
-        // Sets the two spinners to have the colors and the sizes available
-        Spinner colorSpinner = (Spinner) findViewById(R.id.spinner_colors);
-        Spinner sizeSpinner = (Spinner) findViewById(R.id.spinner_size);
-        String[] sizes = new String[]{"Small", "Medium", "Large", "X-Large"};
-        String[] colors = new String[]{"Blue", "Black", "Red", "Green"};
-
-        ArrayAdapter<String> colorAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, colors);
-        colorAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        colorSpinner.setAdapter(colorAdapter);
-
-        ArrayAdapter<String> sizesAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, sizes);
-        sizesAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        sizeSpinner.setAdapter(sizesAdapter);
 
         // Back button to go back to main activity
         Button button= (Button) findViewById(R.id.button);
