@@ -22,6 +22,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -47,9 +48,7 @@ import com.vuforia.samples.SampleApplication.SampleApplicationException;
 import com.vuforia.samples.SampleApplication.SampleApplicationSession;
 import com.vuforia.samples.SampleApplication.utils.LoadingDialogHandler;
 import com.vuforia.samples.SampleApplication.utils.SampleApplicationGLView;
-import com.vuforia.samples.SampleApplication.utils.Texture;
 
-import java.util.Vector;
 import java.util.Scanner;
 import java.io.*;
 
@@ -66,9 +65,6 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
 
     // Our renderer:
     private SynchronyRenderer mRenderer;
-
-    // The textures we will use for rendering:
-    private Vector<Texture> mTextures;
 
     private GestureDetector mGestureDetector;
 
@@ -156,10 +152,6 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
         vuforiaAppSession
                 .initAR(this, ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        // Load any sample specific textures:
-        mTextures = new Vector<>();
-        loadTextures();
-
         mGestureDetector = new GestureDetector(this, new GestureListener());
     }
 
@@ -174,13 +166,6 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
                         .show();
             }
         });
-    }
-
-    // We want to load specific textures from the APK, which we will later use
-    // for rendering.
-    private void loadTextures() {
-        mTextures.add(Texture.loadTextureFromApk(
-                "CubeWireframe.png", getAssets()));
     }
 
     // Process Single Tap event to trigger auto-focus
@@ -272,10 +257,6 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
             Log.e(LOG_TAG, e.getString());
         }
 
-        // Unload texture:
-        mTextures.clear();
-        mTextures = null;
-
         System.gc();
     }
 
@@ -309,6 +290,20 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
         // Shows the loading indicator at start
         loadingDialogHandler
                 .sendEmptyMessage(LoadingDialogHandler.SHOW_LOADING_DIALOG);
+
+        final FloatingActionButton checkoutButton = mUILayout.findViewById(R.id.go_to_checkout_button);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                checkoutButton.setVisibility(View.INVISIBLE);
+            }
+        });
+        checkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCheckoutActivity();
+            }
+        });
 
         // Adds the inflated layout to the view
         addContentView(mUILayout, new LayoutParams(LayoutParams.MATCH_PARENT,
@@ -463,6 +458,13 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
             }
         }
         showProgressIndicator(false);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                FloatingActionButton checkoutButton = mUILayout.findViewById(R.id.go_to_checkout_button);
+                checkoutButton.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     public void showProgressIndicator(boolean show) {
@@ -582,10 +584,24 @@ public class MainActivity extends AppCompatActivity implements SampleApplication
 
     public void displayInfoOverlay() {
         infoOverlay.display();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                FloatingActionButton checkoutButton = mUILayout.findViewById(R.id.go_to_checkout_button);
+                checkoutButton.setVisibility(View.GONE);
+            }
+        });
     }
 
     public void removeInfoOverlay() {
         infoOverlay.remove();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                FloatingActionButton checkoutButton = mUILayout.findViewById(R.id.go_to_checkout_button);
+                checkoutButton.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     public void showInfoActivity(View v) {

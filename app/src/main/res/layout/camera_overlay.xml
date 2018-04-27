@@ -12,6 +12,17 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/go_to_checkout_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_add_shopping_cart_black_24dp"
+        android:background="@color/red" />
+
     <!---->
 
 
